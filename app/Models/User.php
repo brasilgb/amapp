@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'organization_id',
+        'company_id',
         'name',
         'email',
         'password',
+        'roles',
+        'status'
     ];
 
     /**
@@ -45,4 +49,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
 }
