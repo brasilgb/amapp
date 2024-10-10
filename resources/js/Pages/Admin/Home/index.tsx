@@ -1,5 +1,5 @@
-import AdminLayout from '@/resources/js/Layouts/AdminLayout'
-import React from 'react'
+
+import AdminLayout from "@/Layouts/AdminLayout"
 
 const Home = () => {
   return (
