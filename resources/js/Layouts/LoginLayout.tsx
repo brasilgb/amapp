@@ -1,8 +1,8 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
+import ApplicationLogo from '../Components/ApplicationLogo';
 
-export default function Guest({ children }: PropsWithChildren) {
+export default function LoginLayout({ children }: PropsWithChildren) {
     return (
         <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
             <div>

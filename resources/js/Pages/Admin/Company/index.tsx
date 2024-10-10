@@ -1,8 +1,11 @@
+import AdminLayout from '@/resources/js/Layouts/AdminLayout'
 import React from 'react'
 
 const Company = () => {
   return (
-    <div>Company</div>
+    <AdminLayout>
+      <div>Admin</div>
+    </AdminLayout>
   )
 }
 

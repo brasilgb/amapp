@@ -32,10 +32,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
         if ($request->user()->roles === "customer") {
-            return redirect(route('clientes'));
+            return redirect(route('dashboard'));
         }
-        return redirect()->intended(route('dashboard'));
+        return redirect(route('home'));
     }
 
     /**
