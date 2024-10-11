@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class IsCustomer
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->organization_id === null) {
-            return Redirect::route('unauthorized');
+        if (Auth::user()->organization_id !== null) {
+            return Redirect::route('clientes');
         }
         return $next($request);
     }

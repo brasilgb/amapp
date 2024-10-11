@@ -1,12 +1,18 @@
 
+import { Button } from "@/Components/ui/button"
 import { Link } from '@inertiajs/react'
 import React from 'react'
 
 type Props = {}
 
 const Unauthorized = (props: Props) => {
+
+  const back =() => {
+    return window.history.back();
+  }
   return (
-    <main className="h-screen flex flex-col items-center justify-center bg-megb-blue-primary">
+    
+        <main className="min-h-screen flex flex-col items-center justify-center bg-megb-blue-primary">
         <div className="w-5/12 bg-gray-50 border-2 border-white rounded-md shadow-md">
         <div className="py-10 flex items-center">
             <div className="text-megb-red-primary drop-shadow-sm">
@@ -18,10 +24,11 @@ const Unauthorized = (props: Props) => {
             </div>
         </div>
         <div className='flex items-center justify-end pr-4 pb-4'>
-        <Link label='Home' href={route('dashboard')} >Back</Link>
+          <Button variant={"secondary"} onClick={back}>Back</Button>
         </div>
         </div>
     </main>
+
   )
 }
 

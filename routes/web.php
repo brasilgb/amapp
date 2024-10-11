@@ -7,12 +7,14 @@ use App\Http\Controllers\Customer\DashboardController as CustomerDashboardContro
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('/admin')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('admin');
+Route::prefix('admin')->middleware(['auth', 'isCustomer'])->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
     Route::resource('/organizations', AdminOrganizationController::class);
     Route::get('/deleteorgdata/{id}', [AdminOrganizationController::class, 'deleteorgdata'])->name('deleteorgdata');
 });
-    Route::get('/', [CustomerDashboardController::class, 'index'])->name('dashboard')->middleware(['auth']);
+Route::prefix('clientes')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/', [CustomerDashboardController::class, 'index']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/unauthorized', [HomeController::class, 'unauthorized'])->name('unauthorized');
@@ -21,4 +23,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
