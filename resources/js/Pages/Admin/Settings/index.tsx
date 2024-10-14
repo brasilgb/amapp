@@ -1,4 +1,4 @@
-import AdminLayout from '@/resources/js/Layouts/AdminLayout'
+import AdminLayout from '@/Layouts/AdminLayout'
 import React from 'react'
 
 type Props = {}

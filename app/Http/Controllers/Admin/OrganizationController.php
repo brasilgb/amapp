@@ -26,7 +26,7 @@ class OrganizationController extends Controller
         }
 
         $organizations = $query->paginate(12)->withQueryString();;
-        return Inertia::render('Organization/index', ['organizations' => $organizations]);
+        return Inertia::render('Admin/Organization/index', ['organizations' => $organizations]);
     }
 
     /**

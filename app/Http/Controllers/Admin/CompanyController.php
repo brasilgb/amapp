@@ -31,7 +31,7 @@ class CompanyController extends Controller
         }
 
         $companies = $query->paginate(12)->withQueryString();
-        return Inertia::render('Company/index', ['companies' => $companies]);
+        return Inertia::render('Admin/Company/index', ['companies' => $companies]);
     }
 
     /**
@@ -40,7 +40,7 @@ class CompanyController extends Controller
     public function create()
     {
         $organizations = Organization::orderBy('name', 'ASC')->get();
-        return Inertia::render('Company/addCompany', ['organizations' => $organizations]);
+        return Inertia::render('Admin/Company/index', ['organizations' => $organizations]);
     }
 
     /**
