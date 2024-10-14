@@ -17,8 +17,8 @@ class IsCustomer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->organization_id !== null) {
-            return Redirect::route('clientes');
+        if (Auth::user()->roles != 'customer') {
+            return Redirect('admin');
         }
         return $next($request);
     }

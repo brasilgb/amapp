@@ -112,7 +112,9 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href="#"
+                                    href={route('logout')}
+                                    method="post"
+                                    as="button"
                                     className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                     text-muted-foreground transition-colors hover:text-foreground'
                                 >

@@ -33,10 +33,10 @@ class AuthenticatedSessionController extends Controller
 // dd($request->user());
         $request->session()->regenerate();
         
-        if ($request->user()->organization_id !== null) {
-            return redirect(route('clientes'));
+        if ($request->user()->roles == "admin") {
+            return redirect(route('admin'));
         }
-        return redirect(route('admin'));
+        return redirect()->intended(route('clientes'));
     }
 
     /**

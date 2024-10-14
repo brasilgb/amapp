@@ -17,8 +17,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->organization_id === null) {
-            return Redirect::route('unauthorized');
+        if (Auth::user()->roles != 'admin') {
+            return Redirect('clientes');
         }
         return $next($request);
     }
