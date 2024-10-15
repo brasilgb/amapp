@@ -9,7 +9,7 @@ use App\Models\Organization;
 use App\Models\Total;
 use Illuminate\Http\Request;
 
-class JsonToDatabaseController extends Controller
+class RemoteDataSaveController extends Controller
 {
     public function responseError($type)
     {

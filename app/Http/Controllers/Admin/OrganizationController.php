@@ -34,7 +34,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Organization/addOrganization');
+        return Inertia::render('Admin/Organization/addOrg');
     }
 
     /**
@@ -70,7 +70,7 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        return Inertia::render('Organization/editOrganization', ['organization' => $organization]);
+        return Inertia::render('Admin/Organization/editOrg', ['organization' => $organization]);
     }
 
     /**
