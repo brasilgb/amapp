@@ -6,10 +6,10 @@ import AdminLayout from '@/Layouts/AdminLayout'
 import { statusValueByLabel } from "@/Utils/functions"
 import moment from "moment"
 import { Button } from "@/Components/ui/button"
-import { Building2, Plus } from "lucide-react"
+import { Building2, Edit, Plus } from "lucide-react"
 import { Link } from "@inertiajs/react"
 
-const Organization = ({ organizacoes }: any) => {
+const Organization = ({ organizations }: any) => {
 
   const colorsStatus = (status: string) => {
     switch (status) {
@@ -51,21 +51,33 @@ const Organization = ({ organizacoes }: any) => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[100px]">NOME</TableHead>
                 <TableHead className="w-[100px]">CNPJ</TableHead>
                 <TableHead>FILIAIS</TableHead>
                 <TableHead>CADASTRO</TableHead>
                 <TableHead className="text-right">STATUS</TableHead>
+                <TableHead className="text-right"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {organizacoes?.map((org: any) => (
+              {organizations?.data?.map((org: any) => (
                 <TableRow key={org?.id}>
-                  <TableCell className="font-medium">{org?.nnpj}</TableCell>
+                  <TableCell className="font-medium">{org?.name}</TableCell>
+                  <TableCell className="font-medium">{org?.cnpj}</TableCell>
                   <TableCell>{org?.company.length}</TableCell>
                   <TableCell>{moment(
                     org.created_at,
                   ).format("DD/MM/YYYY")}</TableCell>
                   <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(org?.status)}`}>{statusValueByLabel(org?.status)}</span>
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      href={route("organizations.edit", org.id)}
+                      as="button"
+                      type="button"
+                    >
+                      <Edit />
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
