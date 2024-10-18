@@ -15,7 +15,6 @@ use Inertia\Inertia;
 Route::middleware(['auth'])->group(function () {
     Route::resource('/organizations', AdminOrganizationController::class);
     Route::resource('/companies', AdminCompanyController::class);
-    
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [CustomerDashboardController::class, 'index']);
@@ -29,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('admin', [HomeController::class, 'index'])->name('admin')->middleware(['auth', 'isAdmin']);
-Route::get('clientes', [CustomerDashboardController::class, 'index'])->name('clientes')->middleware(['auth', 'isCustomer']);
+Route::get('/', [HomeController::class, 'index'])->name('admin')->middleware(['auth', 'isAdmin']);
+Route::get('/clientes', [CustomerDashboardController::class, 'index'])->name('clientes')->middleware(['auth', 'isCustomer']);
 
 require __DIR__ . '/auth.php';
