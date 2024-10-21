@@ -19,6 +19,7 @@ import {
 } from "@/Components/ui/select"
 import { statusClient } from "@/Utils/dataSelect"
 import { Input } from "@/Components/ui/input"
+import { maskCpfCnpj } from "@/Utils/mask"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "Digite um nome" }),
@@ -28,7 +29,6 @@ const formSchema = z.object({
 
 const addOrg = () => {
     const { errors } = usePage().props as any;
-    console.log(errors.cnpj);
     
     const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
@@ -95,7 +95,7 @@ const addOrg = () => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>CNPJ</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="cnpj" {...field} />
+                                                            <Input placeholder="cnpj" {...field} value={maskCpfCnpj(field.value)} />
                                                         </FormControl>
                                                         {errors.cnpj && <div className="text-red-600 text-sm font-medium">{errors.cnpj}</div>}
                                                         <FormMessage />
@@ -126,7 +126,7 @@ const addOrg = () => {
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end">
-                                        <Button className="flex gap-2" type='submit'>
+                                        <Button className="flex gap-2 bg-blue-600 hover:bg-blue-600/90" type='submit'>
                                             {loading
                                                 ? <Loader2 size={18} className="animate-spin" />
                                                 : <Save size={18} />

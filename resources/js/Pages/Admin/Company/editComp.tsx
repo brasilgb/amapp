@@ -19,21 +19,21 @@ const formSchema = z.object({
   status: z.string(),
 });
 
-const editOrg = ({ organization }: any) => {
+const editComp = ({ companies }: any) => {
   const { errors, flash } = usePage().props as any;
 
   const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: organization.name,
-      cnpj: organization.cnpj,
-      status: organization.status
+      name: companies.name,
+      cnpj: companies.cnpj,
+      status: companies.status
     }
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    router.patch(route("organizations.update", organization.id), values);
+    router.patch(route("companies.update", companies.id), values);
   }
 
   return (
@@ -45,12 +45,12 @@ const editOrg = ({ organization }: any) => {
               <div className="flex text-gray-600">
                 <Building2 size={28} className="mr-1 " />
                 <CardTitle className="text-lg sm:text-xl select-none uppercase">
-                  Organizações
+                  Filiais
                 </CardTitle>
               </div>
 
               <Link
-                href={route('organizations.index')}
+                href={route('companiess.index')}
                 className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                  bg-green-700 hover:bg-green-700/90 text-white transition-colors hover:text-gray-100'
               >
@@ -139,4 +139,4 @@ const editOrg = ({ organization }: any) => {
   )
 }
 
-export default editOrg;
+export default editComp;

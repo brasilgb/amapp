@@ -6,8 +6,9 @@ import AdminLayout from '@/Layouts/AdminLayout'
 import { statusValueByLabel } from "@/Utils/functions"
 import moment from "moment"
 import { Button } from "@/Components/ui/button"
-import { Building2, Edit, Plus } from "lucide-react"
+import { Building, Building2, DatabaseBackup, Edit, Plus, Trash2 } from "lucide-react"
 import { Link } from "@inertiajs/react"
+import { maskCpfCnpj } from '@/Utils/mask'
 
 const Organization = ({ organizations }: any) => {
 
@@ -62,22 +63,55 @@ const Organization = ({ organizations }: any) => {
             <TableBody>
               {organizations?.data?.map((org: any) => (
                 <TableRow key={org?.id}>
-                  <TableCell className="font-medium">{org?.name}</TableCell>
-                  <TableCell className="font-medium">{org?.cnpj}</TableCell>
+                  <TableCell className="font-medium w-80">{org?.name}</TableCell>
+                  <TableCell className="font-medium">{maskCpfCnpj(org?.cnpj)}</TableCell>
                   <TableCell>{org?.company.length}</TableCell>
                   <TableCell>{moment(
                     org.created_at,
                   ).format("DD/MM/YYYY")}</TableCell>
                   <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(org?.status)}`}>{statusValueByLabel(org?.status)}</span>
                   </TableCell>
-                  <TableCell>
-                    <Link
-                      href={route("organizations.edit", org.id)}
-                      as="button"
-                      type="button"
-                    >
-                      <Edit />
-                    </Link>
+                  <TableCell  className='flex gap-1.5 items-center justify-end'>
+                    <Button size="icon" asChild>
+                      <Link
+                        className='bg-blue-700 hover:bg-blue-700/90'
+                        href={route("organizations.edit", org.id)}
+                        as="button"
+                        type="button"
+                      >
+                        <DatabaseBackup className="h-5 w-5" />
+                      </Link>
+                    </Button>
+                    <Button size="icon" asChild>
+                      <Link
+                        className='bg-sky-700 hover:bg-sky-700/90'
+                        href={route("organizations.edit", org.id)}
+                        as="button"
+                        type="button"
+                      >
+                        <Building className="h-5 w-5" />
+                      </Link>
+                    </Button>
+                    <Button size="icon" asChild>
+                      <Link
+                        className='bg-orange-700 hover:bg-orange-700/90'
+                        href={route("organizations.edit", org.id)}
+                        as="button"
+                        type="button"
+                      >
+                        <Edit className="h-5 w-5" />
+                      </Link>
+                    </Button>
+                    <Button size="icon" asChild>
+                      <Link
+                        className='bg-red-700 hover:bg-red-700/90'
+                        href={route("organizations.edit", org.id)}
+                        as="button"
+                        type="button"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -40,7 +40,7 @@ class CompanyController extends Controller
     public function create()
     {
         $organizations = Organization::orderBy('name', 'ASC')->get();
-        return Inertia::render('Admin/Company/index', ['organizations' => $organizations]);
+        return Inertia::render('Admin/Company/addComp', ['organizations' => $organizations]);
     }
 
     /**
@@ -97,7 +97,7 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         $withorg = Company::with('organization')->find($company->id);
-        return Inertia::render('Company/editCompany', ['companies' => $withorg]);
+        return Inertia::render('Admin/Company/editCompany', ['companies' => $withorg]);
     }
 
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8b98e4c406a4dc91bfd627355457bd4",
+    "content-hash": "002ee53f049aaeb077b418af8ca3d7cc",
     "packages": [
         {
             "name": "brick/math",
@@ -134,6 +134,62 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "crawly/inscricao-estadual-laravel",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crawly/InscricaoEstadualLaravel.git",
+                "reference": "81d615573c9f3b0be21cc423a23425f88ef0cb80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crawly/InscricaoEstadualLaravel/zipball/81d615573c9f3b0be21cc423a23425f88ef0cb80",
+                "reference": "81d615573c9f3b0be21cc423a23425f88ef0cb80",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "thiagocfn/inscricaoestadual": "^1.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.17.*",
+                "orchestra/testbench": "4.*",
+                "phpmd/phpmd": "2.8.*",
+                "phpstan/phpstan": "0.12.*",
+                "phpunit/phpunit": "8.5.*",
+                "sebastian/phpcpd": "4.1.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Crawly\\InscricaoEstadualLaravel\\InscricaoEstadualValidatorProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Crawly\\InscricaoEstadualLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Tagliatti",
+                    "email": "filipetagliatti@gmail.com"
+                }
+            ],
+            "description": "Lib de validação de inscrição estadual no laravel",
+            "support": {
+                "issues": "https://github.com/crawly/InscricaoEstadualLaravel/issues",
+                "source": "https://github.com/crawly/InscricaoEstadualLaravel/tree/1.1.0"
+            },
+            "time": "2021-01-26T20:30:51+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -5533,6 +5589,51 @@
                 }
             ],
             "time": "2024-09-16T10:07:02+00:00"
+        },
+        {
+            "name": "thiagocfn/inscricaoestadual",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Thiagocfn/InscricaoEstadual.git",
+                "reference": "414a43f152b9ff39b9cabd33c9bdf34a2018df1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Thiagocfn/InscricaoEstadual/zipball/414a43f152b9ff39b9cabd33c9bdf34a2018df1b",
+                "reference": "414a43f152b9ff39b9cabd33c9bdf34a2018df1b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.16"
+            },
+            "require-dev": {
+                "codacy/coverage": "dev-master",
+                "phpunit/phpunit": "^5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Thiagocfn\\InscricaoEstadual\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thiago Souza",
+                    "email": "thiagocfn@msn.com"
+                }
+            ],
+            "description": "Biblioteca em PHP para validação de todas as Inscrições Estaduais de todo o Brasil, seguindo as regras da SEFAZ. http://www.sintegra.gov.br/insc_est.html",
+            "homepage": "https://github.com/thiagocfn/inscricaoestadual",
+            "support": {
+                "issues": "https://github.com/Thiagocfn/InscricaoEstadual/issues",
+                "source": "https://github.com/Thiagocfn/InscricaoEstadual/tree/1.1.2"
+            },
+            "time": "2021-03-12T00:57:51+00:00"
         },
         {
             "name": "tightenco/ziggy",
