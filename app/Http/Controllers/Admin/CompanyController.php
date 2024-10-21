@@ -20,7 +20,7 @@ class CompanyController extends Controller
     {
         $search = $request->get('q');
         $org = $request->get('o');
-        
+
         $query = Company::with('organization')->orderBy('id', 'DESC');
         if ($search) {
             $query->where('subname', 'like', '%' . $search . '%')
@@ -97,7 +97,7 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         $withorg = Company::with('organization')->find($company->id);
-        return Inertia::render('Admin/Company/editCompany', ['companies' => $withorg]);
+        return Inertia::render('Admin/Company/editComp', ['companies' => $withorg]);
     }
 
     /**
@@ -114,6 +114,7 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $data = $request->all();
+   
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido',
             'cnpj' => 'CNPJ inválido',

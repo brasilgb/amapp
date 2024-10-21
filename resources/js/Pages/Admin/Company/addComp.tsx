@@ -19,6 +19,7 @@ import {
 import { statusClient } from "@/Utils/dataSelect"
 import { Input } from "@/Components/ui/input"
 import { Textarea } from "@/Components/ui/textarea"
+import { maskCep, maskCpfCnpj, maskInscEstadual, maskPhone, unMask } from "@/Utils/mask"
 
 const formSchema = z.object({
     corpreason: z.string().min(1, { message: "O campo razão social deve ser preenchido" }),
@@ -85,6 +86,18 @@ const addComp = ({ organizations }: any) => {
         form.setValue('organization', nome);
         setFilterSearch([]);
     };
+    const getCep = (cep: string) => {
+        const cleanCep = unMask(cep);
+        fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)
+          .then((response) => response.json())
+          .then((result) => {
+            form.setValue('state',  result.uf);
+            form.setValue('county',  result.localidade);
+            form.setValue('neighborhood',  result.bairro);
+            form.setValue('address',  result.logradouro);
+          })
+          .catch((error) => console.error(error));
+      };
 
     return (
         <AdminLayout>
@@ -248,7 +261,7 @@ const addComp = ({ organizations }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>CEP</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} />
+                                                            <Input placeholder="" {...field} value={maskCep(field.value)} onBlur={() => getCep(field.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -342,7 +355,7 @@ const addComp = ({ organizations }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>CNPJ</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} />
+                                                            <Input placeholder="" {...field} value={maskCpfCnpj(field.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -357,7 +370,7 @@ const addComp = ({ organizations }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Inscrição</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} />
+                                                            <Input placeholder="" {...field} value={maskInscEstadual(field.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -372,7 +385,7 @@ const addComp = ({ organizations }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Telefone</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} />
+                                                            <Input placeholder="" {...field} value={maskPhone(field.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>

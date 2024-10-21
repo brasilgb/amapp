@@ -18,7 +18,7 @@ export function Sidebar({ }: Props) {
 
                     <TooltipProvider>
                         <Link
-                            href="#"
+                            href={route('admin')}
                             className='flex h-9 w-9 shrink-0 items-center justify-center bg-green-700 text-primary-foreground rounded-full'
                         >
                             <Package className='h-4 w-4' />
@@ -60,7 +60,7 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href={route("companies.index")}
+                                    href={route('companies.index')}
                                     className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                     text-muted-foreground transition-colors hover:text-foreground'
                                 >
@@ -76,7 +76,7 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href={route("settings")}
+                                    href="#"
                                     className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                     text-muted-foreground transition-colors hover:text-foreground'
                                 >
@@ -92,7 +92,7 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href={route("users.index")}
+                                    href="#"
                                     className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                     text-muted-foreground transition-colors hover:text-foreground'
                                 >
@@ -112,7 +112,7 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href={route('logout')}
+                                    href="#"
                                     method="post"
                                     as="button"
                                     className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
@@ -142,7 +142,7 @@ export function Sidebar({ }: Props) {
                         <SheetContent side="left">
                             <nav className='grid gap-6 text-lg font-medium'>
                                 <Link
-                                    href={route("admin")}
+                                    href="#"
                                     className='flex h-10 w-10 bg-primary rounded-full text-lg items-center justify-center text-primary-foreground md:text-base gap-2'
                                 >
                                     <Package className='h-5 w-5 transition-all' />
@@ -150,7 +150,7 @@ export function Sidebar({ }: Props) {
                                 </Link>
 
                                 <Link
-                                    href={route("admin")}
+                                    href="#"
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Home className='h-5 w-5 transition-all' />
@@ -158,7 +158,7 @@ export function Sidebar({ }: Props) {
                                 </Link>
 
                                 <Link
-                                    href={route('organizations.index')}
+                                    href="#"
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Building2 className='h-5 w-5 transition-all' />
@@ -166,7 +166,7 @@ export function Sidebar({ }: Props) {
                                 </Link>
 
                                 <Link
-                                    href={route('companies.index')}
+                                    href="#"
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Building className='h-5 w-5 transition-all' />
@@ -174,7 +174,7 @@ export function Sidebar({ }: Props) {
                                 </Link>
 
                                 <Link
-                                    href={route('settings')}
+                                    href="#"
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <SlidersHorizontal className='h-5 w-5 transition-all' />
@@ -182,7 +182,7 @@ export function Sidebar({ }: Props) {
                                 </Link>
 
                                 <Link
-                                    href={route('users.index')}
+                                    href="#"
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <User className='h-5 w-5 transition-all' />

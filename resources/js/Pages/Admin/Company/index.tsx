@@ -67,8 +67,8 @@ const Company = ({ companies }: any) => {
               {companies?.data?.map((company: any) => (
                 <TableRow key={company?.id}>
                   <TableCell className="font-medium w-80">{company?.organization.name}</TableCell>
-                  <TableCell className="font-medium">{maskCpfCnpj(company?.subnumber)}</TableCell>
-                  <TableCell className="font-medium">{maskCpfCnpj(company?.subname)}</TableCell>
+                  <TableCell className="font-medium">{company?.subnumber}</TableCell>
+                  <TableCell className="font-medium">{company?.subname}</TableCell>
                   <TableCell>{maskCnpj(company.cnpj.toString())}</TableCell>
                   <TableCell>{maskInscEstadual(company.statereg.toString())}</TableCell>
                   <TableCell className="font-medium">{company.telephone}</TableCell>
