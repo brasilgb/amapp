@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
-import { ArrowBigLeft, Building2, Loader2, Save } from "lucide-react"
+import { ArrowBigLeft, Building2, Check, Loader2, Save } from "lucide-react"
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -43,14 +43,14 @@ const formSchema = z.object({
 });
 
 const editComp = ({ companies }: any) => {
-    const { errors } = usePage().props as any;
+    const { errors, flash } = usePage().props as any;
     const [filterSearch, setFilterSearch] = useState<any>([]);
 
     const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            organization_id: companies.organization_id,
+            organization_id: companies.organization_id.toString(),
             corpreason: companies.corpreason,
             altername: companies.altername,
             organization: companies.organization.name,
@@ -72,24 +72,21 @@ const editComp = ({ companies }: any) => {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-
-        console.log(values);
-
         router.patch(route("companies.update", companies.id), values);
     }
 
     const getCep = (cep: string) => {
         const cleanCep = unMask(cep);
         fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)
-          .then((response) => response.json())
-          .then((result) => {
-            form.setValue('state',  result.uf);
-            form.setValue('county',  result.localidade);
-            form.setValue('neighborhood',  result.bairro);
-            form.setValue('address',  result.logradouro);
-          })
-          .catch((error) => console.error(error));
-      };
+            .then((response) => response.json())
+            .then((result) => {
+                form.setValue('state', result.uf);
+                form.setValue('county', result.localidade);
+                form.setValue('neighborhood', result.bairro);
+                form.setValue('address', result.logradouro);
+            })
+            .catch((error) => console.error(error));
+    };
 
     return (
         <AdminLayout>
@@ -115,6 +112,9 @@ const editComp = ({ companies }: any) => {
                         </div>
                     </CardHeader>
                     <CardContent>
+                        {flash.message &&
+                            <div className="bg-green-500 text-white text-sm font-semibold flex items-center justify-start gap-1 p-2 rounded-md transition-all duration-300"><Check className="w-4 h-4" /> {flash.message}</div>
+                        }
                         <div>
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -169,7 +169,7 @@ const editComp = ({ companies }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Organização</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} value={field.value} disabled />
+                                                            <Input placeholder="" {...field} value={field.value} readOnly />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -392,7 +392,7 @@ const editComp = ({ companies }: any) => {
                                                 <FormItem className="flex flex-col">
                                                     <FormLabel>Observações</FormLabel>
                                                     <FormControl>
-                                                    <Textarea placeholder="" {...field} />
+                                                        <Textarea placeholder="" {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>

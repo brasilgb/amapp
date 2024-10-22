@@ -33,12 +33,13 @@ class UserController extends Controller
         } else {
             $query = User::with('organization')->orderBy('id', 'DESC');
         }
-
+        
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%');
         }
-
+        
         $users = $query->paginate(12)->withQueryString();
+
         return Inertia::render('User/index', ['users' => $users]);
     }
 

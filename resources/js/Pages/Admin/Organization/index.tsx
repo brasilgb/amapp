@@ -74,7 +74,7 @@ const Organization = ({ organizations }: any) => {
                   <TableCell  className='flex gap-1.5 items-center justify-end'>
                     <Button size="icon" asChild>
                       <Link
-                        className='bg-blue-700 hover:bg-blue-700/90'
+                        className='bg-cyan-600 hover:bg-cyan-600/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"
@@ -94,7 +94,7 @@ const Organization = ({ organizations }: any) => {
                     </Button>
                     <Button size="icon" asChild>
                       <Link
-                        className='bg-orange-700 hover:bg-orange-700/90'
+                        className='bg-amber-600 hover:bg-amber-600/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"

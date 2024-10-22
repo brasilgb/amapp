@@ -29,8 +29,8 @@ export function Sidebar({ }: Props) {
                             <TooltipTrigger asChild>
                                 <Link
                                     href={route('admin')}
-                                    className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
-                                    text-muted-foreground transition-colors hover:text-foreground'
+                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
+                                    text-muted-foreground transition-colors hover:text-foreground ${route().current('admin') && 'bg-green-700 text-primary-foreground'} `}
                                 >
                                     <Home className='h-5 w-5' />
                                     <span className='sr-only'>Home</span>
@@ -45,8 +45,8 @@ export function Sidebar({ }: Props) {
                             <TooltipTrigger asChild>
                                 <Link
                                     href={route('organizations.index')}
-                                    className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
-                                    text-muted-foreground transition-colors hover:text-foreground'
+                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
+                                        text-muted-foreground transition-colors hover:text-foreground ${route().current('organizations.*') && 'bg-green-700 text-primary-foreground'} `}
                                 >
                                     <Building2 className='h-5 w-5' />
                                     <span className='sr-only'>Organizações</span>
@@ -61,8 +61,8 @@ export function Sidebar({ }: Props) {
                             <TooltipTrigger asChild>
                                 <Link
                                     href={route('companies.index')}
-                                    className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
-                                    text-muted-foreground transition-colors hover:text-foreground'
+                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
+                                        text-muted-foreground transition-colors hover:text-foreground ${route().current('companies.*') && 'bg-green-700 text-primary-foreground'} `}
                                 >
                                     <Building className='h-5 w-5' />
                                     <span className='sr-only'>Filiais</span>
@@ -92,9 +92,9 @@ export function Sidebar({ }: Props) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href="#"
-                                    className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
-                                    text-muted-foreground transition-colors hover:text-foreground'
+                                    href={route('users.index')}
+                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
+                                        text-muted-foreground transition-colors hover:text-foreground ${route().current('users.*') && 'bg-green-700 text-primary-foreground'} `}
                                 >
                                     <User className='h-5 w-5' />
                                     <span className='sr-only'>Usuários</span>

@@ -7,9 +7,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Route::get('/admin', [HomeController::class, 'index'])->name('admin');
 Route::middleware(['auth'])->group(function () {
