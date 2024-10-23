@@ -22,7 +22,8 @@ import { Input } from "@/Components/ui/input"
 
 const formSchema = z.object({
     organization_id: z.string().min(1, { message: "Selecione a organização" }),
-    company_id: z.string(),
+    //wings: z.number().optional().conditional((schema) =>  schema.type === AnimalType.BIRD).required(),
+    company_id: z.string().optional().conditional((org) => org.organization_id !== null).required(),
     organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
