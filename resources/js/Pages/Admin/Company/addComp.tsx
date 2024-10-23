@@ -86,6 +86,7 @@ const addComp = ({ organizations }: any) => {
         form.setValue('organization', nome);
         setFilterSearch([]);
     };
+    
     const getCep = (cep: string) => {
         const cleanCep = unMask(cep);
         fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)

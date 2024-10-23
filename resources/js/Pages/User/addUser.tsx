@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
-import { ArrowBigLeft, Building2, Loader2, Save } from "lucide-react"
+import { ArrowBigLeft, Building2, Loader2, Save, User2 } from "lucide-react"
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -17,14 +17,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select"
-import { statusClient } from "@/Utils/dataSelect"
+import { roleUser, statusClient } from "@/Utils/dataSelect"
 import { Input } from "@/Components/ui/input"
-import { maskCpfCnpj } from "@/Utils/mask"
 
 const formSchema = z.object({
-    organization_id: z.string().min(1, { message: "Digite um nome" }),
-    company_id: z.string().min(1, { message: "Digite o CNPJ" }),
-    organization: z.string().min(1, { message: "Digite um nome" }),
+    organization_id: z.string().min(1, { message: "Selecione a organização" }),
+    company_id: z.string(),
+    organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
     roles: z.string().min(1, { message: "Digite um nome" }),
@@ -33,14 +32,16 @@ const formSchema = z.object({
     password_confirmation: z.string().min(1, { message: "Digite o CNPJ" }),
 });
 
-const addUser = () => {
+const addUser = ({ organizations }: any) => {
     const { auth, errors } = usePage().props as any;
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [filterSearch, setFilterSearch] = useState<any>([]);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            organization_id: auth.user.organization_id !== null ? auth.user.organization_id : "",
+            organization_id: "",
             company_id: "",
             organization: "",
             name: "",
@@ -51,10 +52,23 @@ const addUser = () => {
             password_confirmation: "",
         }
     });
-
     function onSubmit(values: z.infer<typeof formSchema>) {
-        router.post(route("organizations.store"), values);
+        console.log(values);
+
+        router.post(route("users.store"), values);
     }
+
+    const handleSearch = (value: any) => {
+        const client = value.toLowerCase();
+        const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
+        setFilterSearch(result);
+    };
+
+    const handleChangeCustomer = (id: any, nome: any) => {
+        form.setValue('organization_id', `${id}`);
+        form.setValue('organization', nome);
+        setFilterSearch([]);
+    };
 
     return (
         <AdminLayout>
@@ -63,9 +77,9 @@ const addUser = () => {
                     <CardHeader>
                         <div className="flex items-center justify-between border-b pb-2">
                             <div className="flex text-gray-600">
-                                <Building2 size={28} className="mr-1 " />
+                                <User2 size={28} className="mr-1 " />
                                 <CardTitle className="text-lg sm:text-xl select-none uppercase">
-                                    Organizações
+                                    Usuários
                                 </CardTitle>
                             </div>
 
@@ -75,7 +89,7 @@ const addUser = () => {
                                          bg-green-700 hover:bg-green-700/90 text-white transition-colors hover:text-gray-100'
                             >
                                 <ArrowBigLeft className='h-5 w-5' />
-                                <span className='sr-only'>Voltar a Organização</span>
+                                <span className='sr-only'>Voltar aos Usuários</span>
                             </Link>
                         </div>
                     </CardHeader>
@@ -86,40 +100,74 @@ const addUser = () => {
                                     <div className="grid sm:grid-cols-3 gap-4 mt-4">
 
                                         {auth.user.organization_id !== null &&
-                                            <div className="col-span-2">
+                                            <div className="">
                                                 <FormField
                                                     control={form.control}
                                                     name="company_id"
-                                                    render={({ field }) => (
+                                                    render={({ field }: any) => (
                                                         <FormItem className="flex flex-col">
-                                                            <FormLabel>Filial</FormLabel>
-                                                            <FormControl>
-                                                                <Input placeholder="" {...field} />
-                                                            </FormControl>
-                                                            <FormMessage />
+                                                            <FormLabel>Função do usuário</FormLabel>
+                                                            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                                                                <SelectTrigger className="">
+                                                                    <SelectValue placeholder="Selecione a filial" />
+                                                                </SelectTrigger>
+                                                                <SelectContent>
+                                                                    {organizations[0].company?.map((stat: any, idx: number) => (
+                                                                        <SelectItem key={idx} value={stat.subnumber}>{stat.altername}</SelectItem>
+                                                                    ))}
+                                                                </SelectContent>
+                                                            </Select>
                                                         </FormItem>
                                                     )}
                                                 />
                                             </div>
                                         }
                                         {auth.user.organization_id === null &&
-                                            <div className="col-span-2">
+                                            <div className="relative">
                                                 <FormField
                                                     control={form.control}
-                                                    name="organization"
+                                                    name="organization_id"
                                                     render={({ field }) => (
-                                                        <FormItem className="flex flex-col">
-                                                            <FormLabel>Nome</FormLabel>
+                                                        <FormItem className="">
                                                             <FormControl>
-                                                                <Input placeholder="nome" {...field} />
+                                                                <Input {...field} value={field.value} />
                                                             </FormControl>
                                                             <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="organization"
+                                                    render={({ field }) => (
+                                                        <FormItem className="flex flex-col">
+                                                            <FormLabel>Organização</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="" {...field} value={field.value} onChange={(e) => handleSearch(e.target.value)} />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                {filterSearch.length > 0 &&
+                                                    <div className="absolute z-20 bg-gray-50 border-2 border-white shadow-md w-full rounded-sm top-16 max-h-52 overflow-y-auto">
+                                                        <ul className="p-1">
+                                                            {filterSearch.map((organization: any, idx: number) => (
+                                                                <li key={idx} className={`flex items-center justify-normal ${idx < (filterSearch.length - 1) ? 'border-b border-gray-200' : ''}`}>
+                                                                    <div
+                                                                        className="text-sm text-gray-600 p-1 cursor-pointer inline-block w-full"
+                                                                        onClick={() => handleChangeCustomer(organization.id, organization.name)}
+                                                                    >
+                                                                        {organization.name}
+                                                                    </div>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                }
                                             </div>
                                         }
-                                        <div className="col-span-2">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="name"
@@ -135,7 +183,7 @@ const addUser = () => {
                                                 )}
                                             />
                                         </div>
-                                        <div className="col-span-2">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="email"
@@ -152,15 +200,14 @@ const addUser = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="grid sm:grid-cols-4 gap-4 mt-4">
-
-                                        <div className="col-span-2">
+                                    <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="password"
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
-                                                        <FormLabel>E-mail</FormLabel>
+                                                        <FormLabel>Senha</FormLabel>
                                                         <FormControl>
                                                             <Input placeholder="" {...field} />
                                                         </FormControl>
@@ -170,13 +217,13 @@ const addUser = () => {
                                                 )}
                                             />
                                         </div>
-                                        <div className="col-span-2">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="password_confirmation"
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
-                                                        <FormLabel>E-mail</FormLabel>
+                                                        <FormLabel>Repita a senha</FormLabel>
                                                         <FormControl>
                                                             <Input placeholder="" {...field} />
                                                         </FormControl>
@@ -186,19 +233,21 @@ const addUser = () => {
                                                 )}
                                             />
                                         </div>
-                                        <div className="col-span-2">
+                                    </div>
+                                    <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="roles"
                                                 render={({ field }: any) => (
                                                     <FormItem className="flex flex-col">
-                                                        <FormLabel>Status</FormLabel>
+                                                        <FormLabel>Função do usuário</FormLabel>
                                                         <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                                                             <SelectTrigger className="">
-                                                                <SelectValue placeholder={field.value} />
+                                                                <SelectValue placeholder="Selecione a função" />
                                                             </SelectTrigger>
                                                             <SelectContent>
-                                                                {statusClient.map((stat: any, idx: number) => (
+                                                                {roleUser.map((stat: any, idx: number) => (
                                                                     <SelectItem key={idx} value={stat.value}>{stat.label}</SelectItem>
                                                                 ))}
                                                             </SelectContent>
@@ -207,7 +256,7 @@ const addUser = () => {
                                                 )}
                                             />
                                         </div>
-                                        <div className="col-span-2">
+                                        <div className="">
                                             <FormField
                                                 control={form.control}
                                                 name="status"
@@ -216,7 +265,7 @@ const addUser = () => {
                                                         <FormLabel>Status</FormLabel>
                                                         <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                                                             <SelectTrigger className="">
-                                                                <SelectValue placeholder={field.value} />
+                                                                <SelectValue placeholder="Selecione o status" />
                                                             </SelectTrigger>
                                                             <SelectContent>
                                                                 {statusClient.map((stat: any, idx: number) => (
