@@ -22,15 +22,17 @@ import { Input } from "@/Components/ui/input"
 
 const formSchema = z.object({
     organization_id: z.string().min(1, { message: "Selecione a organização" }),
-    //wings: z.number().optional().conditional((schema) =>  schema.type === AnimalType.BIRD).required(),
-    company_id: z.string().optional().conditional((org) => org.organization_id !== null).required(),
+    company_id: z.string().refine((org:any) => org.organization_id !== null, {message: "Selecione a filial"}),
     organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
-    roles: z.string().min(1, { message: "Digite um nome" }),
-    status: z.string(),
-    password: z.string().min(1, { message: "Digite o CNPJ" }),
-    password_confirmation: z.string().min(1, { message: "Digite o CNPJ" }),
+    roles: z.string().min(1, { message: "Selecione oa função" }),
+    status: z.string().min(1, { message: "Selecione o status" }),
+    password: z.string().min(8, { message: "A senha deve ter no mínimo 8 caracteres" }),
+    password_confirmation: z.string().min(8, { message: "A senha deve ter no mínimo 8 caracteres" }),
+}).refine((data) => data.password === data.password_confirmation, {
+    message: "As senhas são diferentes",
+    path: ["password_confirmation"],
 });
 
 const addUser = ({ organizations }: any) => {
@@ -85,7 +87,7 @@ const addUser = ({ organizations }: any) => {
                             </div>
 
                             <Link
-                                href={route('organizations.index')}
+                                href={route('users.index')}
                                 className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
                                          bg-green-700 hover:bg-green-700/90 text-white transition-colors hover:text-gray-100'
                             >
@@ -129,7 +131,7 @@ const addUser = ({ organizations }: any) => {
                                                     control={form.control}
                                                     name="organization_id"
                                                     render={({ field }) => (
-                                                        <FormItem className="">
+                                                        <FormItem className="hidden">
                                                             <FormControl>
                                                                 <Input {...field} value={field.value} />
                                                             </FormControl>

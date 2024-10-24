@@ -21,7 +21,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    { 
+    {
         $users = Auth::user();
         $search = $request->get('q');
         if ($users->organization_id) {
@@ -33,11 +33,11 @@ class UserController extends Controller
         } else {
             $query = User::with('organization')->orderBy('id', 'DESC');
         }
-        
+
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%');
         }
-        
+
         $users = $query->paginate(12)->withQueryString();
 
         return Inertia::render('User/index', ['users' => $users]);

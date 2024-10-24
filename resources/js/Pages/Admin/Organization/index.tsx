@@ -52,7 +52,7 @@ const Organization = ({ organizations }: any) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">NOME</TableHead>
+                <TableHead className="w-[100px]">ORGANIZAÇÂO</TableHead>
                 <TableHead className="w-[100px]">CNPJ</TableHead>
                 <TableHead>FILIAIS</TableHead>
                 <TableHead>CADASTRO</TableHead>
