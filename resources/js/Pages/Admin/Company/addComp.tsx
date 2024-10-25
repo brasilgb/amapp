@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
 import { ArrowBigLeft, Building2, Loader2, Save } from "lucide-react"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,6 +20,7 @@ import { statusClient } from "@/Utils/dataSelect"
 import { Input } from "@/Components/ui/input"
 import { Textarea } from "@/Components/ui/textarea"
 import { maskCep, maskCpfCnpj, maskInscEstadual, maskPhone, unMask } from "@/Utils/mask"
+import { register } from "module"
 
 const formSchema = z.object({
     corpreason: z.string().min(1, { message: "O campo razão social deve ser preenchido" }),
@@ -74,11 +75,17 @@ const addComp = ({ organizations }: any) => {
     function onSubmit(values: z.infer<typeof formSchema>) {
         router.post(route("companies.store"), values);
     }
+    useEffect(() => {
+        console.log(form.getValues('organization'));
+    }, [form])
 
     const handleSearch = (value: any) => {
-        const client = value.toLowerCase();
-        const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
-        setFilterSearch(result);
+        form.setValue('organization', value);
+        if (value.length > 2) {
+            const client = value.toLowerCase();
+            const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
+            setFilterSearch(result);
+        }
     };
 
     const handleChangeCustomer = (id: any, nome: any) => {
@@ -86,19 +93,19 @@ const addComp = ({ organizations }: any) => {
         form.setValue('organization', nome);
         setFilterSearch([]);
     };
-    
+
     const getCep = (cep: string) => {
         const cleanCep = unMask(cep);
         fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)
-          .then((response) => response.json())
-          .then((result) => {
-            form.setValue('state',  result.uf);
-            form.setValue('county',  result.localidade);
-            form.setValue('neighborhood',  result.bairro);
-            form.setValue('address',  result.logradouro);
-          })
-          .catch((error) => console.error(error));
-      };
+            .then((response) => response.json())
+            .then((result) => {
+                form.setValue('state', result.uf);
+                form.setValue('county', result.localidade);
+                form.setValue('neighborhood', result.bairro);
+                form.setValue('address', result.logradouro);
+            })
+            .catch((error) => console.error(error));
+    };
 
     return (
         <AdminLayout>
@@ -178,7 +185,7 @@ const addComp = ({ organizations }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Organização</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} value={field.value} onChange={(e) => handleSearch(e.target.value)} />
+                                                            <Input placeholder="" {...field} onChange={(e) => handleSearch(e.target.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -417,7 +424,7 @@ const addComp = ({ organizations }: any) => {
                                                 <FormItem className="flex flex-col">
                                                     <FormLabel>Observações</FormLabel>
                                                     <FormControl>
-                                                    <Textarea placeholder="" {...field} />
+                                                        <Textarea placeholder="" {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>

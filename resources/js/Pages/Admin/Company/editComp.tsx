@@ -23,7 +23,7 @@ import { maskCep, maskCpfCnpj, maskInscEstadual, maskPhone, unMask } from "@/Uti
 
 const formSchema = z.object({
     corpreason: z.string().min(1, { message: "O campo razão social deve ser preenchido" }),
-    organization: z.string(),
+    organization: z.string().optional(),
     subnumber: z.string().min(1, { message: "O campo número filial deve ser preenchido" }),
     subname: z.string().min(1, { message: "O campo nome filial deve ser preenchido" }),
     cep: z.string().min(1, { message: "O campo cep deve ser preenchido" }),
@@ -42,7 +42,7 @@ const formSchema = z.object({
     observation: z.string(),
 });
 
-const editComp = ({ companies }: any) => {
+const editComp = ({ companies, organizations }: any) => {
     const { errors, flash } = usePage().props as any;
     const [filterSearch, setFilterSearch] = useState<any>([]);
 
@@ -74,6 +74,21 @@ const editComp = ({ companies }: any) => {
     function onSubmit(values: z.infer<typeof formSchema>) {
         router.patch(route("companies.update", companies.id), values);
     }
+
+    const handleSearch = (value: any) => {
+        form.setValue('organization', value);
+        if (value.length > 2) {
+            const client = value.toLowerCase();
+            const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
+            setFilterSearch(result);
+        }
+    };
+
+    const handleChangeCustomer = (id: any, nome: any) => {
+        form.setValue('organization_id', `${id}`);
+        form.setValue('organization', nome);
+        setFilterSearch([]);
+    };
 
     const getCep = (cep: string) => {
         const cleanCep = unMask(cep);
@@ -150,7 +165,7 @@ const editComp = ({ companies }: any) => {
                                             />
                                         </div>
                                         <div className="col-span-2 relative">
-                                            <FormField
+                                        <FormField
                                                 control={form.control}
                                                 name="organization_id"
                                                 render={({ field }) => (
@@ -169,12 +184,28 @@ const editComp = ({ companies }: any) => {
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Organização</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="" {...field} value={field.value} readOnly />
+                                                            <Input placeholder="" {...field} value={field.value} onChange={(e) => handleSearch(e.target.value)} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
                                             />
+                                            {filterSearch.length > 0 &&
+                                                <div className="absolute z-20 bg-gray-50 border-2 border-white shadow-md w-full rounded-sm top-16 max-h-52 overflow-y-auto">
+                                                    <ul className="p-1">
+                                                        {filterSearch.map((organization: any, idx: number) => (
+                                                            <li key={idx} className={`flex items-center justify-normal ${idx < (filterSearch.length - 1) ? 'border-b border-gray-200' : ''}`}>
+                                                                <div
+                                                                    className="text-sm text-gray-600 p-1 cursor-pointer inline-block w-full"
+                                                                    onClick={() => handleChangeCustomer(organization.id, organization.name)}
+                                                                >
+                                                                    {organization.name}
+                                                                </div>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            }
                                         </div>
                                         <div>
                                             <FormField

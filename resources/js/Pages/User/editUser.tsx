@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
-import { ArrowBigLeft, Building2, Loader2, Save, User2 } from "lucide-react"
+import { ArrowBigLeft, Building2, Check, Loader2, Save, User2 } from "lucide-react"
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -22,21 +22,21 @@ import { Input } from "@/Components/ui/input"
 
 const formSchema = z.object({
     organization_id: z.string().min(1, { message: "Selecione a organização" }),
-    company_id: z.string(),
+    company_id: z.string().optional(),
     organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
     roles: z.string().min(1, { message: "Selecione oa função" }),
     status: z.string().min(1, { message: "Selecione o status" }),
-    password: z.string().min(8, { message: "A senha deve ter no mínimo 8 caracteres" }),
-    password_confirmation: z.string().min(8, { message: "A senha deve ter no mínimo 8 caracteres" }),
+    password: z.string().optional(),
+    password_confirmation: z.string().optional(),
 }).refine((data) => data.password === data.password_confirmation, {
     message: "As senhas são diferentes",
     path: ["password_confirmation"],
 });
 
 const editUser = ({ organizations, user }: any) => {
-    const { auth, errors } = usePage().props as any;
+    const { auth, errors, flash } = usePage().props as any;
 
     const [loading, setLoading] = useState(false);
     const [filterSearch, setFilterSearch] = useState<any>([]);
@@ -45,7 +45,7 @@ const editUser = ({ organizations, user }: any) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             organization_id: user.organization_id.toString(),
-            company_id: user.company_id,
+            company_id: user.company_id ? user.company_id.toString() : '',
             organization: user.organization.name,
             name: user.name,
             email: user.email,
@@ -55,16 +55,18 @@ const editUser = ({ organizations, user }: any) => {
             password_confirmation: "",
         }
     });
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
 
-        router.post(route("users.update", user.id), values);
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        router.patch(route("users.update", user.id), values);
     }
 
     const handleSearch = (value: any) => {
-        const client = value.toLowerCase();
-        const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
-        setFilterSearch(result);
+        form.setValue('organization', value);
+        if (value.length > 2) {
+            const client = value.toLowerCase();
+            const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
+            setFilterSearch(result);
+        }
     };
 
     const handleChangeCustomer = (id: any, nome: any) => {
@@ -75,6 +77,7 @@ const editUser = ({ organizations, user }: any) => {
 
     return (
         <AdminLayout>
+
             <div className='p-4 bg-background'>
                 <Card>
                     <CardHeader>
@@ -97,12 +100,15 @@ const editUser = ({ organizations, user }: any) => {
                         </div>
                     </CardHeader>
                     <CardContent>
+                        {flash.message &&
+                            <div className="bg-green-500 text-white text-sm font-semibold flex items-center justify-start gap-1 p-2 rounded-md transition-all duration-300"><Check className="w-4 h-4" /> {flash.message}</div>
+                        }
                         <div>
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                                     <div className="grid sm:grid-cols-3 gap-4 mt-4">
 
-                                        {auth.user.organization_id === null &&
+                                        {auth.user.organization_id !== null &&
                                             <div className="">
                                                 <FormField
                                                     control={form.control}
@@ -131,7 +137,7 @@ const editUser = ({ organizations, user }: any) => {
                                                     control={form.control}
                                                     name="organization_id"
                                                     render={({ field }) => (
-                                                        <FormItem className="">
+                                                        <FormItem className="hidden">
                                                             <FormControl>
                                                                 <Input {...field} value={field.value} />
                                                             </FormControl>

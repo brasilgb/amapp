@@ -96,8 +96,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
+        $organizations = Organization::orderBy('name', 'ASC')->get();
         $withorg = Company::with('organization')->find($company->id);
-        return Inertia::render('Admin/Company/editComp', ['companies' => $withorg]);
+        return Inertia::render('Admin/Company/editComp', ['companies' => $withorg, 'organizations' => $organizations]);
     }
 
     /**
@@ -114,7 +115,7 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $data = $request->all();
-   
+
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido',
             'cnpj' => 'CNPJ inválido',

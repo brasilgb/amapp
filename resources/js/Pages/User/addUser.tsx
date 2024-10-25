@@ -62,9 +62,12 @@ const addUser = ({ organizations }: any) => {
     }
 
     const handleSearch = (value: any) => {
-        const client = value.toLowerCase();
-        const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
-        setFilterSearch(result);
+        form.setValue('organization', value);
+        if (value.length > 2) {
+            const client = value.toLowerCase();
+            const result = organizations?.filter((cl: any) => (cl.name.toLowerCase().includes(client)));
+            setFilterSearch(result);
+        }
     };
 
     const handleChangeCustomer = (id: any, nome: any) => {
