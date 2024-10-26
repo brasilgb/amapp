@@ -78,9 +78,8 @@ const Company = ({ companies }: any) => {
                   <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(company?.status)}`}>{statusValueByLabel(company?.status)}</span>
                   </TableCell>
                   <TableCell  className='flex gap-1.5 items-center justify-end'>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="edit" asChild>
                       <Link
-                        className='bg-orange-700 hover:bg-orange-700/90'
                         href={route("companies.edit", company?.id)}
                         as="button"
                         type="button"
@@ -88,9 +87,8 @@ const Company = ({ companies }: any) => {
                         <Edit className="h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="destructive" asChild>
                       <Link
-                        className='bg-red-700 hover:bg-red-700/90'
                         href={route("companies.edit", company?.id)}
                         as="button"
                         type="button"

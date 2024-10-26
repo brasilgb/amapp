@@ -72,9 +72,8 @@ const User = ({ users }: any) => {
                   </TableCell>
                   <TableCell  className='flex gap-1.5 items-center justify-end'>
 
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="edit" asChild>
                       <Link
-                        className='bg-amber-600 hover:bg-amber-600/90'
                         href={route("users.edit", user?.id)}
                         as="button"
                         type="button"
@@ -82,9 +81,8 @@ const User = ({ users }: any) => {
                         <Edit className="h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="destructive" asChild>
                       <Link
-                        className='bg-red-700 hover:bg-red-700/90'
                         href={route("users.edit", user?.id)}
                         as="button"
                         type="button"

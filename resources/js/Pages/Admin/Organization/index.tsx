@@ -72,9 +72,8 @@ const Organization = ({ organizations }: any) => {
                   <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(org?.status)}`}>{statusValueByLabel(org?.status)}</span>
                   </TableCell>
                   <TableCell  className='flex gap-1.5 items-center justify-end'>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="btnone" asChild>
                       <Link
-                        className='bg-cyan-600 hover:bg-cyan-600/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"
@@ -82,9 +81,8 @@ const Organization = ({ organizations }: any) => {
                         <DatabaseBackup className="h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="btntwo" asChild>
                       <Link
-                        className='bg-sky-700 hover:bg-sky-700/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"
@@ -92,9 +90,8 @@ const Organization = ({ organizations }: any) => {
                         <Building className="h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="edit" asChild>
                       <Link
-                        className='bg-amber-600 hover:bg-amber-600/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"
@@ -102,9 +99,8 @@ const Organization = ({ organizations }: any) => {
                         <Edit className="h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button size="icon" asChild>
+                    <Button size="icon" variant="destructive" asChild>
                       <Link
-                        className='bg-red-700 hover:bg-red-700/90'
                         href={route("organizations.edit", org.id)}
                         as="button"
                         type="button"

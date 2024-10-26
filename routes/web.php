@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/settings', [SettingsController::class, 'index'])->name("settings");
+    Route::resource('/settings', SettingsController::class);
     Route::resource('/users', UserController::class);
     // Route::get('/unauthorized', [HomeController::class, 'unauthorized'])->name('unauthorized');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
