@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('totals', function (Blueprint $table) {
             $table->string('id')->primary()->index();
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');;
             $table->string('cnpj');
             $table->integer('filial');
             $table->string('datatu');

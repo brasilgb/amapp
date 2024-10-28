@@ -131,7 +131,7 @@ class CompanyController extends Controller
                 'county' => 'required',
                 'state' => 'required',
                 'neighborhood' => 'required',
-                'cnpj' => ['required', Rule::unique('companies')->ignore($company->id), 'cnpj'],
+                'cnpj' => 'unique:companies,cnpj,' . $company->id,
                 'statereg' => 'required|inscricao_estadual_rs',
                 'telephone' => 'required',
             ],

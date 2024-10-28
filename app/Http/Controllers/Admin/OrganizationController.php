@@ -60,7 +60,6 @@ class OrganizationController extends Controller
         );
 
         $organization = Organization::create($data);
-        Settings::create(['organization_id' => $organization->id]);
         Session::flash('success', 'Organização cadastrada com sucesso!');
         return redirect()->route('organizations.index');
     }

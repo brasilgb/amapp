@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()->organization_id) {
+        if (Auth::user()->organization_id != null) {
             return Redirect('clientes');
         }
         return $next($request);

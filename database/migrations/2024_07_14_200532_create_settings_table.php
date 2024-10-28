@@ -13,26 +13,22 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->nullable()->constrained();
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('logo', 100)->nullable();
-
             $table->string('headerbg')->nullable();
             $table->string('headertext')->nullable();
             $table->string('buttonbg')->nullable();
             $table->string('buttontext')->nullable();
             $table->string('buttonbgactive')->nullable();
             $table->string('buttontextactive')->nullable();
-
             $table->string('secundarybarbg')->nullable();
             $table->string('secundarybartext')->nullable();
-
             $table->string('analisebg')->nullable();
             $table->string('analisetext')->nullable();
             $table->string('buttonanalisebg')->nullable();
             $table->string('buttonanalisetext')->nullable();
             $table->string('buttonanalisebgactive')->nullable();
             $table->string('buttonanalisetextactive')->nullable();
-
             $table->string('footerbg')->nullable();
             $table->string('footertext')->nullable();
             $table->timestamps();

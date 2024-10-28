@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
-import { ArrowBigLeft, Building2, Loader2, Save, User2 } from "lucide-react"
+import { ArrowBigLeft, Building2, Eye, EyeClosedIcon, EyeIcon, EyeOff, Loader2, Save, User2 } from "lucide-react"
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ import { Input } from "@/Components/ui/input"
 
 const formSchema = z.object({
     organization_id: z.string().min(1, { message: "Selecione a organização" }),
-    company_id: z.string().refine((org:any) => org.organization_id !== null, {message: "Selecione a filial"}),
+    company_id: z.string().refine((org: any) => org.organization_id !== null, { message: "Selecione a filial" }),
     organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
@@ -40,6 +40,7 @@ const addUser = ({ organizations }: any) => {
 
     const [loading, setLoading] = useState(false);
     const [filterSearch, setFilterSearch] = useState<any>([]);
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -214,30 +215,53 @@ const addUser = ({ organizations }: any) => {
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Senha</FormLabel>
-                                                        <FormControl>
-                                                            <Input placeholder="" {...field} />
-                                                        </FormControl>
+                                                        <div className="relative">
+                                                            <FormControl>
+                                                                <Input type={passwordVisibility ? 'text' : 'password'} placeholder="" {...field} />
+                                                            </FormControl>
+                                                            <Button
+                                                                type="button"
+                                                                className="absolute right-0.5 top-0.5"
+                                                                onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                                                size="icon"
+                                                                variant="link"
+                                                            >
+                                                                {passwordVisibility ? <EyeOff /> : <Eye />}
+                                                            </Button>
+                                                        </div>
                                                         {errors.cnpj && <div className="text-red-600 text-sm font-medium">{errors.cnpj}</div>}
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
                                             />
                                         </div>
-                                        <div className="">
+                                        <div>
                                             <FormField
                                                 control={form.control}
                                                 name="password_confirmation"
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Repita a senha</FormLabel>
-                                                        <FormControl>
-                                                            <Input placeholder="" {...field} />
-                                                        </FormControl>
+                                                        <div className="relative">
+                                                            <FormControl>
+                                                                <Input type={passwordVisibility ? 'text' : 'password'} placeholder="" {...field} />
+                                                            </FormControl>
+                                                            <Button
+                                                                type="button"
+                                                                className="absolute right-0.5 top-0.5"
+                                                                onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                                                size="icon"
+                                                                variant="link"
+                                                            >
+                                                                {passwordVisibility ? <EyeOff /> : <Eye />}
+                                                            </Button>
+                                                        </div>
                                                         {errors.cnpj && <div className="text-red-600 text-sm font-medium">{errors.cnpj}</div>}
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
                                             />
+
                                         </div>
                                     </div>
                                     <div className="grid sm:grid-cols-2 gap-4 mt-4">

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { Link, router, usePage } from "@inertiajs/react"
-import { ArrowBigLeft, Building2, Check, Loader2, Save, User2 } from "lucide-react"
+import { ArrowBigLeft, Building2, Check, Eye, EyeOff, Loader2, Save, User2 } from "lucide-react"
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -40,6 +40,7 @@ const editUser = ({ organizations, user }: any) => {
 
     const [loading, setLoading] = useState(false);
     const [filterSearch, setFilterSearch] = useState<any>([]);
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -217,9 +218,20 @@ const editUser = ({ organizations, user }: any) => {
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Senha</FormLabel>
+                                                        <div className="relative">
                                                         <FormControl>
                                                             <Input placeholder="" {...field} />
                                                         </FormControl>
+                                                            <Button
+                                                                type="button"
+                                                                className="absolute right-0.5 top-0.5"
+                                                                onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                                                size="icon"
+                                                                variant="link"
+                                                            >
+                                                                {passwordVisibility ? <EyeOff /> : <Eye />}
+                                                            </Button>
+                                                        </div>
                                                         {errors.cnpj && <div className="text-red-600 text-sm font-medium">{errors.cnpj}</div>}
                                                         <FormMessage />
                                                     </FormItem>
@@ -233,9 +245,20 @@ const editUser = ({ organizations, user }: any) => {
                                                 render={({ field }) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Repita a senha</FormLabel>
+                                                        <div className="relative">
                                                         <FormControl>
                                                             <Input placeholder="" {...field} />
                                                         </FormControl>
+                                                            <Button
+                                                                type="button"
+                                                                className="absolute right-0.5 top-0.5"
+                                                                onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                                                size="icon"
+                                                                variant="link"
+                                                            >
+                                                                {passwordVisibility ? <EyeOff /> : <Eye />}
+                                                            </Button>
+                                                        </div>
                                                         {errors.cnpj && <div className="text-red-600 text-sm font-medium">{errors.cnpj}</div>}
                                                         <FormMessage />
                                                     </FormItem>

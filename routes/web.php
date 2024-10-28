@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/admin', [HomeController::class, 'index'])->name('admin');
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::resource('/organizations', AdminOrganizationController::class);
     Route::resource('/companies', AdminCompanyController::class);
     Route::get('/deleteorgdata/{id}', [AdminOrganizationController::class, 'deleteorgdata'])->name('deleteorgdata');
@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::get('/', [HomeController::class, 'index'])->name('admin')->middleware(['auth', 'isAdmin']);
 Route::get('/clientes', [CustomerDashboardController::class, 'index'])->name('clientes')->middleware(['auth', 'isCustomer']);
 
