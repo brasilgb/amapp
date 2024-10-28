@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
     Route::resource('/organizations', AdminOrganizationController::class);
     Route::resource('/companies', AdminCompanyController::class);
+    Route::get('/deleteorgdata/{id}', [AdminOrganizationController::class, 'deleteorgdata'])->name('deleteorgdata');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [CustomerDashboardController::class, 'index']);

@@ -1,17 +1,17 @@
 
 import React from 'react'
-import { Card, CardHeader, CardTitle } from '@/Components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table'
 import AdminLayout from '@/Layouts/AdminLayout'
 import { statusValueByLabel } from "@/Utils/functions"
 import moment from "moment"
 import { Button } from "@/Components/ui/button"
-import { Building, Building2, DatabaseBackup, Edit, Plus, Trash2 } from "lucide-react"
-import { Link } from "@inertiajs/react"
+import { Building, Building2, Check, DatabaseBackup, Edit, Plus, Trash2 } from "lucide-react"
+import { Link, usePage } from "@inertiajs/react"
 import { maskCpfCnpj } from '@/Utils/mask'
 
 const Organization = ({ organizations }: any) => {
-
+const { flash } = usePage().props as any;
   const colorsStatus = (status: string) => {
     switch (status) {
       case 'active':
@@ -49,70 +49,76 @@ const Organization = ({ organizations }: any) => {
 
             </div>
           </CardHeader>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">ORGANIZAÇÂO</TableHead>
-                <TableHead className="w-[100px]">CNPJ</TableHead>
-                <TableHead>FILIAIS</TableHead>
-                <TableHead>CADASTRO</TableHead>
-                <TableHead className="text-right">STATUS</TableHead>
-                <TableHead className="text-right"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {organizations?.data?.map((org: any) => (
-                <TableRow key={org?.id}>
-                  <TableCell className="font-medium w-80">{org?.name}</TableCell>
-                  <TableCell className="font-medium">{maskCpfCnpj(org?.cnpj)}</TableCell>
-                  <TableCell>{org?.company.length}</TableCell>
-                  <TableCell>{moment(
-                    org.created_at,
-                  ).format("DD/MM/YYYY")}</TableCell>
-                  <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(org?.status)}`}>{statusValueByLabel(org?.status)}</span>
-                  </TableCell>
-                  <TableCell  className='flex gap-1.5 items-center justify-end'>
-                    <Button size="icon" variant="btnone" asChild>
-                      <Link
-                        href={route("organizations.edit", org.id)}
-                        as="button"
-                        type="button"
-                      >
-                        <DatabaseBackup className="h-5 w-5" />
-                      </Link>
-                    </Button>
-                    <Button size="icon" variant="btntwo" asChild>
-                      <Link
-                        href={route("organizations.edit", org.id)}
-                        as="button"
-                        type="button"
-                      >
-                        <Building className="h-5 w-5" />
-                      </Link>
-                    </Button>
-                    <Button size="icon" variant="edit" asChild>
-                      <Link
-                        href={route("organizations.edit", org.id)}
-                        as="button"
-                        type="button"
-                      >
-                        <Edit className="h-5 w-5" />
-                      </Link>
-                    </Button>
-                    <Button size="icon" variant="destructive" asChild>
-                      <Link
-                        href={route("organizations.edit", org.id)}
-                        as="button"
-                        type="button"
-                      >
-                        <Trash2 className="h-5 w-5" />
-                      </Link>
-                    </Button>
-                  </TableCell>
+          <CardContent>
+          {flash.message &&
+              <div className="bg-green-500 text-white text-sm font-semibold flex items-center justify-start gap-1 p-2 rounded-md transition-all duration-300"><Check className="w-4 h-4" /> {flash.message}</div>
+            }
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">ORGANIZAÇÂO</TableHead>
+                  <TableHead className="w-[100px]">CNPJ</TableHead>
+                  <TableHead>FILIAIS</TableHead>
+                  <TableHead>CADASTRO</TableHead>
+                  <TableHead className="text-right">STATUS</TableHead>
+                  <TableHead className="text-right"></TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {organizations?.data?.map((org: any) => (
+                  <TableRow key={org?.id}>
+                    <TableCell className="font-medium w-80">{org?.name}</TableCell>
+                    <TableCell className="font-medium">{maskCpfCnpj(org?.cnpj)}</TableCell>
+                    <TableCell>{org?.company.length}</TableCell>
+                    <TableCell>{moment(
+                      org.created_at,
+                    ).format("DD/MM/YYYY")}</TableCell>
+                    <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(org?.status)}`}>{statusValueByLabel(org?.status)}</span>
+                    </TableCell>
+                    <TableCell className='flex gap-1.5 items-center justify-end'>
+                      <Button size="icon" variant="btnone" asChild>
+                        <Link
+                          href={route("deleteorgdata", org.id)}
+                          as="button"
+                          type="button"
+                        >
+                          <DatabaseBackup className="h-5 w-5" />
+                        </Link>
+                      </Button>
+                      <Button size="icon" variant="btntwo" asChild>
+                        <Link
+                          href={`companies?o=${org.id}`}
+                          as="button"
+                          type="button"
+                        >
+                          <Building className="h-5 w-5" />
+                        </Link>
+                      </Button>
+                      <Button size="icon" variant="edit" asChild>
+                        <Link
+                          href={route("organizations.edit", org.id)}
+                          as="button"
+                          type="button"
+                        >
+                          <Edit className="h-5 w-5" />
+                        </Link>
+                      </Button>
+                      <Button size="icon" variant="destructive" asChild>
+                        <Link
+                          href={route("organizations.edit", org.id)}
+                          as="button"
+                          type="button"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+
         </Card>
 
 

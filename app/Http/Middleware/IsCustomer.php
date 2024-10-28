@@ -17,7 +17,7 @@ class IsCustomer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->organization_id === null) {
+        if (Auth::user()->organization_id) {
             return Redirect('/');
         }
         return $next($request);

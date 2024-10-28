@@ -21,8 +21,8 @@ import { roleUser, statusClient } from "@/Utils/dataSelect"
 import { Input } from "@/Components/ui/input"
 
 const formSchema = z.object({
-    organization_id: z.string().min(1, { message: "Selecione a organização" }),
-    company_id: z.string().optional(),
+    organization_id: z.any().optional(),
+    company_id: z.any().optional(),
     organization: z.string().min(1, { message: "Selecione a organização" }),
     name: z.string().min(1, { message: "Digite um nome" }),
     email: z.string().min(1, { message: "Digite o CNPJ" }),
@@ -44,9 +44,9 @@ const editUser = ({ organizations, user }: any) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            organization_id: user.organization_id.toString(),
-            company_id: user.company_id ? user.company_id.toString() : '',
-            organization: user.organization.name,
+            organization_id: user.organization_id && user.organization_id.toString(),
+            company_id: user.company_id,
+            organization: user.organization_id ? user.organization.name : 'Automágico',
             name: user.name,
             email: user.email,
             roles: user.roles,
@@ -152,7 +152,7 @@ const editUser = ({ organizations, user }: any) => {
                                                         <FormItem className="flex flex-col">
                                                             <FormLabel>Organização</FormLabel>
                                                             <FormControl>
-                                                                <Input placeholder="" {...field} value={field.value} onChange={(e) => handleSearch(e.target.value)} />
+                                                                <Input placeholder="" {...field} value={field.value} onChange={(e) => handleSearch(e.target.value)} readOnly={user.organization_id === null ? true : false} />
                                                             </FormControl>
                                                             <FormMessage />
                                                         </FormItem>

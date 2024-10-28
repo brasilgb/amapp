@@ -52,6 +52,7 @@ const User = ({ users }: any) => {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">NOME</TableHead>
+                <TableHead className="w-[100px]">ORGANIZAÇÃO</TableHead>
                 <TableHead className="w-[100px]">E-MAIL</TableHead>
                 <TableHead>ROLES</TableHead>
                 <TableHead>CADASTRO</TableHead>
@@ -63,6 +64,7 @@ const User = ({ users }: any) => {
               {users?.data?.map((user: any) => (
                 <TableRow key={user?.id}>
                   <TableCell className="font-medium w-80">{user?.name}</TableCell>
+                  <TableCell className="font-medium w-80">{user?.organization_id ? user?.organization.name : 'Automágico'}</TableCell>
                   <TableCell className="font-medium">{user?.email}</TableCell>
                   <TableCell>{roleUserByValue(user?.roles)}</TableCell>
                   <TableCell>{moment(
@@ -70,7 +72,7 @@ const User = ({ users }: any) => {
                   ).format("DD/MM/YYYY")}</TableCell>
                   <TableCell className="text-right"><span className={`py-1 px-3 text-sm text-gray-100 font-medium rounded-full ${colorsStatus(user?.status)}`}>{statusValueByLabel(user?.status)}</span>
                   </TableCell>
-                  <TableCell  className='flex gap-1.5 items-center justify-end'>
+                  <TableCell className='flex gap-1.5 items-center justify-end'>
 
                     <Button size="icon" variant="edit" asChild>
                       <Link
