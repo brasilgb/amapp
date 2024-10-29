@@ -5,9 +5,10 @@ import { ChartSpline } from 'lucide-react'
 interface KpisProps{
     title: string;
     value: string;
+    icon: any;
 }
 
-const kpis = ({title, value}: KpisProps) => {
+const kpis = ({title, value, icon}: KpisProps) => {
   return (
     <Card>
     <CardHeader>
@@ -15,10 +16,10 @@ const kpis = ({title, value}: KpisProps) => {
         <CardTitle className="text-lg sm:text-xl text-gray-500 select-none">
           {title}
         </CardTitle>
-        <ChartSpline size={32} className="ml-auto text-blue-600" />
+        {icon}
       </div>
       <CardDescription className="flex">
-        <div className="text-2xl font-bold bg-blue-700 text-white rounded-full w-10 h-10 flex items-center justify-center">{value}</div>
+        <div className="text-2xl font-bold text-gray-600 rounded-full flex items-center justify-center">{value}</div>
       </CardDescription>
     </CardHeader>
   </Card>
