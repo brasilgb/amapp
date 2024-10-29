@@ -17,7 +17,6 @@ const Dashboard = (props: Props) => {
           <Kpis title={""} value={""} />
         </div>
       </main>
-
     </CustomerLayout>
   )
 }
