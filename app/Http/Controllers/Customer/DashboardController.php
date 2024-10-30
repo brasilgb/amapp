@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sale;
 use App\Models\Total;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,6 +22,15 @@ class DashboardController extends Controller
                 $totals = Total::where('datatu', $lastDate->datatu)->where('organization_id', 2)->where('filial', 0)->first();
         }
 
-        return Inertia::render('Customer/Dashboard', ['totals' => $totals]);
+        $mquery = Sale::where('anomes', '202410')->where('organization_id', 2)->where('filial', 0)->first();
+        if ($mquery) {
+            $salesmonth = Sale::where('anomes', '202410')->where('organization_id', 2)->where('filial', 0)->get();
+        } else {
+            $lastDate = Sale::where('organization_id', 2)->where('filial', 0)->orderBy('anomes', 'DESC')->first();
+            if ($lastDate !== null)
+                $salesmonth = Sale::where('anomes', $lastDate->anomes)->where('organization_id', 2)->where('filial', 0)->get();
+        }
+
+        return Inertia::render('Customer/Dashboard', ['totals' => $totals, 'salesmonth' => $salesmonth]);
     }
 }

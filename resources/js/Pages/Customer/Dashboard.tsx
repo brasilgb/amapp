@@ -1,14 +1,16 @@
+import ComposeChart from "@/Components/customer/ComposeChart"
 import Kpis from "@/Components/customer/kpis"
+import KpisCombo from "@/Components/customer/kpisCombo"
 import RadialChart from "@/Components/customer/RadialChart"
 import CustomerLayout from "@/Layouts/CustomerLayout"
 import { Link } from "@inertiajs/react"
-import { ChartNoAxesCombined, ChartSpline, HandCoins, LogOut, TrendingUp } from "lucide-react"
+import { ChartColumn, ChartNoAxesCombined, ChartScatter, ChartSpline, CircleDollarSign, HandCoins, LogOut, TrendingUp } from "lucide-react"
 import React from 'react'
 
 type Props = {}
 
-const Dashboard = ({ totals }: any) => {
-    console.log(totals)
+const Dashboard = ({ totals, salesmonth }: any) => {
+    console.log(salesmonth)
     return (
         <CustomerLayout>
             <main className="p-4">
@@ -24,6 +26,15 @@ const Dashboard = ({ totals }: any) => {
                     <RadialChart title={"Valor 2"} label={"Margem"} value={65} />
                     <RadialChart title={"Valor 3"} label={"Meta Dia"} value={80} />
                     <RadialChart title={"Valor 3"} label={"Projeção"} value={95.5} />
+                </div>
+                <div className="grid sm:grid-cols-4 gap-4 mt-4">
+                    <KpisCombo title={"Venda do dia 30/09/2024"} valueMeta={59677.41} valueVenda={45079.96} valueMargem={39.85} valueRep={2.43} icon={<ChartColumn size={18} />} />
+                    <KpisCombo title={"Venda do dia 29/09/2024"} valueMeta={59677.41} valueVenda={45079.96} valueMargem={39.85} valueRep={2.43} icon={<ChartColumn size={18} />} />
+                    <KpisCombo title={"Venda do dia 28/09/2024"} valueMeta={59677.41} valueVenda={45079.96} valueMargem={39.85} valueRep={2.43} icon={<ChartColumn size={18} />} />
+                    <KpisCombo title={"Venda do dia 27/09/2024"} valueMeta={59677.41} valueVenda={45079.96} valueMargem={39.85} valueRep={2.43} icon={<ChartColumn size={18} />} />
+                </div>
+                <div className="mt-4">
+                    <ComposeChart data={salesmonth} />
                 </div>
             </main>
         </CustomerLayout>
