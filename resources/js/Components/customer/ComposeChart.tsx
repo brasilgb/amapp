@@ -90,7 +90,7 @@ const ComposeChart = ({ data }: ComposeChartProps) => {
                     Sendo a meta de {parseValueMoney(data[0].valmeta)} para este mês. <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Mostrando as vendas e as metas alcançadas para os {data.length} dias do mês
+                    Mostrando as vendas e as margens alcançadas para os {data.length} dias do mês
                 </div>
             </CardFooter>
         </Card>
