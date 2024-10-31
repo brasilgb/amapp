@@ -1,4 +1,4 @@
-import { TrendingUp } from "lucide-react"
+import { Percent, TrendingUp } from "lucide-react"
 import {
     Label,
     PolarGrid,
@@ -16,6 +16,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card"
 import { ChartConfig, ChartContainer } from "@/Components/ui/chart"
+import { parseValuePercent } from "@/Utils/mask"
 
 export const description = "A radial chart with text"
 
@@ -43,29 +44,30 @@ const RadialChart = ({ title, label, value }: RadialChartProps) => {
     } satisfies ChartConfig
 
     return (
-        <Card className="flex flex-col">
-            {/* <CardHeader className="items-center pb-0"> */}
-                {/* <CardTitle>{title}</CardTitle> */}
-                {/* <CardDescription>January - June 2024</CardDescription> */}
-            {/* </CardHeader> */}
-            <CardContent className="flex-1 pb-0">
+        <Card className="flex flex-col relative">
+            <div className="flex self-end p-4 absolute text-gray-500"><Percent size={28} /></div>
+            {/* <CardHeader className="items-center pb-0">
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>January - June 2024</CardDescription>
+            </CardHeader> */}
+            <CardContent className="flex-1 p-4">
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto aspect-square max-h-[200px]"
+                    className="mx-auto aspect-square max-h-[150px]"
                 >
                     <RadialBarChart
                         data={chartData}
                         startAngle={90}
                         endAngle={350 + value}
-                        innerRadius={80}
-                        outerRadius={110}
+                        innerRadius={64}
+                        outerRadius={100}
                     >
                         <PolarGrid
                             gridType="circle"
                             radialLines={false}
                             stroke="none"
                             className="first:fill-muted last:fill-background"
-                            polarRadius={[86, 74]}
+                            polarRadius={[72, 57]}
                         />
                         <RadialBar dataKey="visitors" background cornerRadius={10} />
                         <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
@@ -84,7 +86,7 @@ const RadialChart = ({ title, label, value }: RadialChartProps) => {
                                                     y={viewBox.cy}
                                                     className="fill-foreground text-4xl font-bold"
                                                 >
-                                                    {chartData[0].visitors.toLocaleString()}
+                                                    {(parseFloat(chartData[0].visitors).toFixed())}
                                                 </tspan>
                                                 <tspan
                                                     x={viewBox.cx}

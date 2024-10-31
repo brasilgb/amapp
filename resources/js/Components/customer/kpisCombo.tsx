@@ -8,6 +8,7 @@ import {
     CardTitle,
 } from '@/Components/ui/card'
 import { ChartSpline } from 'lucide-react'
+import { parseValueMoney, parseValuePercent } from '@/Utils/mask';
 
 interface KpisProps {
     title: string;
@@ -21,41 +22,30 @@ interface KpisProps {
 const KpisCombo = (props: KpisProps) => {
     return (
         <Card>
-            <CardHeader>
-                <div className="flex items-center justify-between">
-                    <CardTitle className="text-xs sm:text-sm text-gray-500 select-none">
+            <CardHeader className='p-2'>
+                <div className="flex items-center justify-between text-gray-500">
+                    <CardTitle className="text-xs sm:text-sm select-none">
                         {props.title}
                     </CardTitle>
                     {props.icon}
                 </div>
-                <CardContent className="grid sm:grid-cols-4 content-center w-full bg-red-100 p-0">
-                    <div className="flex flex-col items-center justify-start bg-gray-100 w-full">
-                        <div>
-                          <h1>Meta</h1>
-                        <p>{props.valueMeta}</p>
-                        </div>
-
+                <CardContent className="grid grid-cols-4 w-full p-0">
+                    <div className='flex flex-col items-center justify-start w-full'>
+                        <h1 className='text-sm sm:text-base text-gray-500'>Meta</h1>
+                        <p className='text-base font-semibold'>{parseValueMoney(props.valueMeta)}</p>
                     </div>
-                    <div className="flex flex-col items-center justify-start w-full">
-                        <div>
-                         <h1>Venda</h1>
-                        <p>{props.valueVenda}</p>
-                        </div>
-
+                    <div className='flex flex-col items-center justify-start w-full'>
+                        <h1 className='text-sm sm:text-base text-gray-500'>Venda</h1>
+                        <p className='text-base font-semibold'>{parseValueMoney(props.valueVenda)}</p>
                     </div>
-                    <div className="flex flex-col items-center justify-start w-full">
-                        <div>
-                          <h1>Margem</h1>
-                        <p>{props.valueMargem}</p>
-                        </div>
-
+                    <div className='flex flex-col items-center justify-start w-full'>
+                        
+                        <h1 className='text-sm sm:text-base text-gray-500'>Margem</h1>
+                        <p className='text-base font-semibold'>{parseValuePercent(props.valueMargem)}</p>
                     </div>
-                    <div className="flex flex-col items-center justify-start w-full">
-                        <div>
-                           <h1>Rep</h1>
-                        <p>{props.valueRep}</p>
-                        </div>
-
+                    <div className='flex flex-col items-center justify-start w-full'>
+                        <h1 className='text-sm sm:text-base text-gray-500'>Rep</h1>
+                        <p className='text-base font-semibold'>{parseValuePercent(props.valueRep)}</p>
                     </div>
                 </CardContent>
             </CardHeader>

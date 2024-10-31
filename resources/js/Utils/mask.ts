@@ -68,5 +68,15 @@ function unMask(value: string) {
         return value;
     }
 }
-
-export { maskCep, maskPhone, maskDate, maskCpfCnpj, maskCnpj, unMask, maskInscEstadual };
+function parseValueMoney(value: any) {
+    return Intl.NumberFormat('pt-br', {
+        style: 'currency',
+        currency: 'BRL',
+    }).format(isNaN(value) ? 0 : value);
+};
+function parseValuePercent(value: any) {
+    return (
+        ((isNaN(value) ? 0 : value)).toFixed(2).replace('.', ',') + '%'
+    );
+};
+export { maskCep, maskPhone, maskDate, maskCpfCnpj, maskCnpj, unMask, maskInscEstadual, parseValueMoney, parseValuePercent };

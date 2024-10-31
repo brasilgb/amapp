@@ -7,13 +7,11 @@ import { Link } from "@inertiajs/react"
 import { ChartColumn, ChartNoAxesCombined, ChartScatter, ChartSpline, CircleDollarSign, HandCoins, LogOut, TrendingUp } from "lucide-react"
 import React from 'react'
 
-type Props = {}
+const Dashboard = ({ totals, salesmonth, companies }: any) => {
 
-const Dashboard = ({ totals, salesmonth }: any) => {
-    console.log(salesmonth)
     return (
-        <CustomerLayout>
-            <main className="p-4">
+        <CustomerLayout data={companies}>
+            <main className="px-4 pb-4">
                 <div className="grid sm:grid-cols-4 gap-4">
                     <Kpis title="Meta" value={totals.valmeta} icon={<ChartSpline size={32} className="ml-auto text-blue-600" />} />
                     <Kpis title="Faturamento" value={totals.valven} icon={<HandCoins size={32} className="ml-auto text-green-600" />} />
@@ -22,7 +20,7 @@ const Dashboard = ({ totals, salesmonth }: any) => {
                 </div>
 
                 <div className="grid sm:grid-cols-4 gap-4 mt-4">
-                    <RadialChart title={"Valor 1"} label={"Meta"} value={15} />
+                    <RadialChart title={"Valor 1"} label={"Meta"} value={totals.permet} />
                     <RadialChart title={"Valor 2"} label={"Margem"} value={65} />
                     <RadialChart title={"Valor 3"} label={"Meta Dia"} value={80} />
                     <RadialChart title={"Valor 3"} label={"Projeção"} value={95.5} />

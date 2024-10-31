@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card'
 import { ChartSpline } from 'lucide-react'
+import { parseValueMoney } from '@/Utils/mask';
 
 interface KpisProps{
     title: string;
@@ -19,7 +20,7 @@ const kpis = ({title, value, icon}: KpisProps) => {
         {icon}
       </div>
       <CardDescription className="flex">
-        <div className="text-2xl font-bold text-gray-600 rounded-full flex items-center justify-center">{value}</div>
+        <div className="text-2xl font-bold text-gray-600 rounded-full flex items-center justify-center">{parseValueMoney(value)}</div>
       </CardDescription>
     </CardHeader>
   </Card>
