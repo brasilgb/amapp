@@ -7,47 +7,46 @@ use App\Models\Company;
 use App\Models\Sale;
 use App\Models\Total;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SaleController extends Controller
 {
+    public function response($value)
+    {
+        return response()->json([
+            "response" => [
+                "success" => true,
+                "status" => 201,
+                "sales" => $value
+            ],
+        ], 201);
+    }
+
     public function getSales(Request $request)
     {
-
         $wquery = Sale::where('dtvenda', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
         if ($wquery) {
             $sales = Sale::where('dtvenda', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
         } else {
             $lastDate = Sale::where('organization_id', $request->org)->where('filial', $request->fl)->orderBy('dtvenda', 'DESC')->first();
-            if ($lastDate !== null) 
-            $sales = Sale::where('dtvenda', $lastDate->dtvenda)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
+            if ($lastDate !== null)
+                $sales = Sale::where('dtvenda', $lastDate->dtvenda)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
         }
-
-        return response()->json([
-            "response" => [
-                "success" => true,
-                "status" => 201,
-                "sales" => $sales
-            ],
-        ], 201);
+        return $this->response($sales);
     }
 
-    public function getSalesChart(Request $request)
+    public function getSalesMonth(Request $request)
     {
-        $wquery = Sale::where('anomes', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
-        if ($wquery) {
-            $saleschart = Sale::where('anomes', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
+
+        $mquery = Sale::where('anomes', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
+        if ($mquery) {
+            $salesmonth = Sale::where('anomes', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
         } else {
             $lastDate = Sale::where('organization_id', $request->org)->where('filial', $request->fl)->orderBy('anomes', 'DESC')->first();
             if ($lastDate !== null)
-                $saleschart = Sale::where('anomes', $lastDate->anomes)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
+                $salesmonth = Sale::where('anomes', $lastDate->anomes)->where('organization_id', $request->org)->where('filial', $request->fl)->get();
         }
-        return response()->json([
-            "response" => [
-                "success" => true,
-                "status" => 201,
-                "saleschart" => $saleschart
-            ],
-        ], 201);
+        return $this->response($salesmonth);
     }
 }

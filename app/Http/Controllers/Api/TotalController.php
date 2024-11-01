@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Total;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TotalController extends Controller
 {
@@ -23,12 +24,11 @@ class TotalController extends Controller
         $wquery = Total::where('datatu', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
         if ($wquery) {
             $totals = Total::where('datatu', $request->dt)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
-            return $this->response($totals);
         } else {
             $lastDate = Total::where('organization_id', $request->org)->where('filial', $request->fl)->orderBy('datatu', 'DESC')->first();
             if ($lastDate !== null)
                 $totals = Total::where('datatu', $lastDate->datatu)->where('organization_id', $request->org)->where('filial', $request->fl)->first();
-                return $this->response($totals);
         }
+        return $this->response($totals);
     }
 }

@@ -33,11 +33,11 @@ interface ComposeChartProps {
 }
 const ComposeChart = ({ data }: ComposeChartProps) => {
 
-    const diasemana = data.map((value: any) => moment(value?.dtvenda).format("DD"));
-    const mesano = moment(data[0]?.dtvenda).format("MM/YYYY");
-    const margem = data.map((value: any) => parseFloat(value?.margem));
-    const meta = data.map((value: any) => parseFloat(value?.valmeta));
-    const vendas = data.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((value: any) => parseFloat(value?.valvenda));
+    // const diasemana = data.map((value: any) => moment(value?.dtvenda).format("DD"));
+    // const mesano = moment(data[0]?.dtvenda).format("MM/YYYY");
+    // const margem = data.map((value: any) => parseFloat(value?.margem));
+    // const meta = data.map((value: any) => parseFloat(value?.valmeta));
+    // const vendas = data.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((value: any) => parseFloat(value?.valvenda));
 
     const chartData = data.map((value: any) => ({
         diasemana: moment(value?.dtvenda).format("DD"),
@@ -50,7 +50,7 @@ const ComposeChart = ({ data }: ComposeChartProps) => {
         <Card>
             <CardHeader>
                 <CardTitle>Vendas no período</CardTitle>
-                <CardDescription>{moment(data[0].anomes).format("MM/YYYY")}</CardDescription>
+                <CardDescription>{moment(data[0]?.anomes).format("MM/YYYY")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
@@ -87,10 +87,10 @@ const ComposeChart = ({ data }: ComposeChartProps) => {
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
                 <div className="flex gap-2 font-medium leading-none">
-                    Sendo a meta de {parseValueMoney(data[0].valmeta)} para este mês. <TrendingUp className="h-4 w-4" />
+                    Sendo a meta de {parseValueMoney(data[0]?.valmeta)} para este mês. <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Mostrando as vendas e as margens alcançadas para os {data.length} dias do mês
+                    Mostrando as vendas e as margens alcançadas para os {data?.length} dias do mês
                 </div>
             </CardFooter>
         </Card>

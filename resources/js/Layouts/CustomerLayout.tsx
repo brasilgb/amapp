@@ -1,18 +1,13 @@
-import { Link } from '@inertiajs/react';
-import { PropsWithChildren, ReactNode } from 'react';
-import ApplicationLogo from '../Components/ApplicationLogo';
+import { PropsWithChildren } from 'react';
 import Header from '@/Components/customer/Header';
 import Footer from '@/Components/customer/Footer';
 import ControlHead from '@/Components/customer/ControlHead';
-interface CitiesProps {
-    data: any;
-    children: ReactNode;
-}
-export default function CustomerLayout({children, data}: CitiesProps) {
+
+export default function CustomerLayout({ children }: PropsWithChildren) {
     return (
         <div className="min-h-screen w-auto flex flex-col bg-background font-sans antialiased">
             <Header />
-            <ControlHead data={data} />
+            <ControlHead />
             <div className="flex-grow">
                 {children}
             </div>
