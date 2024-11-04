@@ -14,13 +14,16 @@ import {
 } from "@/Components/ui/popover"
 import moment from "moment"
 import { useAuthContext } from "@/Contexts"
+import { PopoverClose } from "@radix-ui/react-popover"
+import { ptBR } from "date-fns/locale";
 
 export function DatePicker() {
 
     const { setDataFiltro, dataFiltro } = useAuthContext();
+    const [calendarOpen, setCalendarOpen] = React.useState(false);
 
     return (
-        <Popover>
+        <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
             <PopoverTrigger asChild>
                 <Button
                     variant={"outline"}
@@ -35,12 +38,16 @@ export function DatePicker() {
             </PopoverTrigger>
             <PopoverContent className={`w-auto p-0 `}>
                 <Calendar
+                    locale={ptBR}
                     mode="single"
                     selected={dataFiltro}
-                    onSelect={setDataFiltro}
                     initialFocus
+                    onDayClick={() => setCalendarOpen(false)}
+                    onSelect={setDataFiltro}
+                    defaultMonth={dataFiltro}
                 />
             </PopoverContent>
+
         </Popover>
     )
 }

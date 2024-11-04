@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Organization;
 use App\Models\Tenant;
@@ -15,7 +16,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class CliUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,7 +41,7 @@ class UserController extends Controller
 
         $users = $query->paginate(12)->withQueryString();
 
-        return Inertia::render('User/index', ['users' => $users]);
+        return Inertia::render('Customer/User/index', ['users' => $users]);
     }
 
     /**
@@ -49,7 +50,7 @@ class UserController extends Controller
     public function create()
     {
         $organizations = Organization::with('company')->get();
-        return Inertia::render('User/addUser', ['organizations' => $organizations]);
+        return Inertia::render('Customer/User/addUser', ['organizations' => $organizations]);
     }
 
     /**
@@ -69,7 +70,7 @@ class UserController extends Controller
         $request->validate(
             [
                 'organization_id' => 'required',
-                'company_id' => $org !== null ? 'required' : '',
+                'company_id' => 'required',
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'roles' => 'required',
@@ -91,7 +92,7 @@ class UserController extends Controller
         $data['password'] = Hash::make($request->password);
         User::create($data);
         Session::flash('success', 'Usuário cadastrado com sucesso!');
-        return redirect()->route('users.index');
+        return redirect()->route('cliusers.index');
     }
 
     /**
@@ -101,7 +102,7 @@ class UserController extends Controller
     {
         $wt = User::with('organization')->find($user->id);
         $organizations = Organization::with('company')->get();
-        return Inertia::render('User/editUser', ['user' => $wt, 'organizations' => $organizations]);
+        return Inertia::render('Customer/User/editUser', ['user' => $wt, 'organizations' => $organizations]);
     }
 
     /**
@@ -109,7 +110,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return Redirect::route('users.show', ['user' => $user->id]);
+        return Redirect::route('cliusers.show', ['user' => $user->id]);
     }
 
     /**
@@ -127,9 +128,7 @@ class UserController extends Controller
         ];
         $request->validate(
             [
-                // 'organization_id' => 'required',
                 'name' => 'required',
-                // 'email' => 'required|email|unique:users',
                 'email' => ['required', Rule::unique('users')->ignore($user->id), 'email'],
                 'roles' => 'required',
                 'status' => 'required',
@@ -149,7 +148,7 @@ class UserController extends Controller
         $data['password'] = $request->password ? Hash::make($request->password) : $user->password;
         $user->update($data);
         Session::flash('success', 'Usuário editado com sucesso!');
-        return Redirect::route('users.show', ['user' => $user->id]);
+        return Redirect::route('cliusers.show', ['user' => $user->id]);
     }
 
     /**
@@ -159,6 +158,6 @@ class UserController extends Controller
     {
         $user->delete();
         Session::flash('success', 'Usuário deletado com sucesso');
-        return Redirect::route('users.index');
+        return Redirect::route('cliusers.index');
     }
 }

@@ -16,15 +16,6 @@ const ControlHead = () => {
             <div>
                 <SelectFilial />
             </div>
-            <div>
-                <Button
-                    variant="outline"
-                    size="default"
-                    onClick={() => setFilialAnalise(0)}
-                >
-                    <Network className="h-5 w-5" /><span>Análise da rede</span>
-                </Button>
-            </div>
         </div>
     )
 }

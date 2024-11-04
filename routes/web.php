@@ -7,6 +7,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 
 use App\Http\Controllers\Customer\AssociationController;
+use App\Http\Controllers\Customer\CliUserController;
 use App\Http\Controllers\Customer\SalesController;
 
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('/settings', SettingsController::class);
     Route::resource('/users', UserController::class);
+    Route::resource('/clientes/cliusers', CliUserController::class)->parameters(['cliusers' => 'user']);
     // Route::get('/unauthorized', [HomeController::class, 'unauthorized'])->name('unauthorized');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
