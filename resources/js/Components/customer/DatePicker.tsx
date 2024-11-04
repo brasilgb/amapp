@@ -33,13 +33,12 @@ export function DatePicker() {
                     {moment(dataFiltro).format("DD/MM/YYYY")}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className={`w-auto p-0 `}>
                 <Calendar
                     mode="single"
                     selected={dataFiltro}
                     onSelect={setDataFiltro}
                     initialFocus
-                    
                 />
             </PopoverContent>
         </Popover>

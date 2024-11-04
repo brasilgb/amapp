@@ -12,7 +12,7 @@ const Header = (props: Props) => {
       <ul className='flex items-center gap-4'>
         <li>
           <Link
-            href={route('admin')}
+            href={route('clientes')}
             className='flex h-9 w-9 shrink-0 items-center justify-center bg-green-700 text-primary-foreground rounded-full'
           >
             <img
@@ -23,14 +23,20 @@ const Header = (props: Props) => {
           </Link>
         </li>
         <li>
-          <Link className='bg-green-600 flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-white text-base font-semibold'
-            href={''}>
+          <Link
+            className={`flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-base font-semibold
+          ${route().current('clientes') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-100 text-green-600 hover:text-green-600/60'}
+          `}
+            href={route('clientes')}>
             <Gauge className='h-5 w-5' /> <span>Dashboard</span>
           </Link>
-
         </li>
         <li>
-          <Link className='bg-green-600 flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-white text-base font-semibold' href={''}>
+          <Link
+            className={`flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-base font-semibold
+                        ${route().current('invoicing.*') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-100 text-green-600 hover:text-green-600/60'}
+                        `}
+            href={route('invoicing.summary')}>
             <HandCoins className='h-5 w-5' /> <span>Faturamento</span>
           </Link>
         </li>

@@ -2,6 +2,7 @@ import apiautomagico from "@/bootstrap"
 import ComposeChart from "@/Components/customer/ComposeChart"
 import Kpis from "@/Components/customer/kpis"
 import KpisCombo from "@/Components/customer/kpisCombo"
+import LoadingPage from "@/Components/customer/LoadingPage"
 import RadialChart from "@/Components/customer/RadialChart"
 import { useAuthContext } from "@/Contexts"
 import CustomerLayout from "@/Layouts/CustomerLayout"
@@ -9,46 +10,47 @@ import { Link, usePage } from "@inertiajs/react"
 import { ChartColumn, ChartNoAxesCombined, ChartScatter, ChartSpline, CircleDollarSign, HandCoins, LogOut, TrendingUp } from "lucide-react"
 import moment from "moment"
 import React, { useEffect, useState } from 'react'
+import 'animate.css';
 
 const Dashboard = () => {
     const { auth } = usePage().props as any;
-    const { filialAnalise, dataFiltro } = useAuthContext();
+    const { filialAnalise, dataFiltro, setLoading, loading } = useAuthContext();
     const [totals, setTotals] = useState<any>([]);
     const [salesMonth, setSalesMonth] = useState<any>([]);
 
     useEffect(() => {
         const getCompanies = async () => {
+            setLoading(true);
             const adata = moment(dataFiltro).format("YYYYMMDD");
             await apiautomagico.get(`totals?dt=${adata}&org=${auth?.user?.organization_id}&fl=${filialAnalise}`)
                 .then((res) => {
                     setTotals(res.data.response.totals);
                 }).catch((err) => {
                     console.log(err);
-                })
+                }).finally(() => setLoading(false));
         };
         getCompanies();
     }, [auth, filialAnalise, dataFiltro]);
 
     useEffect(() => {
         const getCompanies = async () => {
+            setLoading(true);
             const adata = moment(dataFiltro).format("YYYYMM");
             await apiautomagico.get(`salesmonth?dt=${adata}&org=${auth?.user?.organization_id}&fl=${filialAnalise}`)
                 .then((res) => {
                     setSalesMonth(res.data.response.sales);
-
                 }).catch((err) => {
                     console.log(err);
-                })
+                }).finally(() => setLoading(false));
         };
         getCompanies();
     }, [auth, filialAnalise, dataFiltro]);
 
     return (
-        <>
-              <CustomerLayout>
-            {totals?.length > 0 || salesMonth?.length > 0
-
-                   ?   <main className="px-4 pb-4">
+            <CustomerLayout>
+                {loading && <LoadingPage />}
+                {totals?.length > 0 || salesMonth?.length > 0 &&
+                    <main className="px-4 pb-4 animate__animated animate__fadeIn">
                         <div className="grid sm:grid-cols-4 gap-4">
                             <Kpis title="Meta" value={totals.valmeta} icon={<ChartSpline size={32} className="ml-auto text-blue-600" />} />
                             <Kpis title="Faturamento" value={totals.valven} icon={<HandCoins size={32} className="ml-auto text-green-600" />} />
@@ -73,11 +75,8 @@ const Dashboard = () => {
                             {salesMonth && <ComposeChart data={salesMonth} />}
                         </div>
                     </main>
-                  : <div className="p-4">Não há dados para análise, entre em contato com nosso suporte.</div>
-            }
-                </CustomerLayout>
-
-        </>
+                }
+            </CustomerLayout>
     )
 }
 

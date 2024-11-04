@@ -35,15 +35,16 @@ const SelectFilial = () => {
     const handleSelected = (value: any) => {
         setFilialAnalise(value);
     };
+    const filialative = defaultCompany[0]?.subnumber + '-' + defaultCompany[0]?.subname;
+
     return (
         <>
             {companies &&
                 <Select onValueChange={handleSelected}>
                     <SelectTrigger className="w-[280px]">
-                        <SelectValue placeholder={`${defaultCompany[0]?.subnumber} - ${defaultCompany[0]?.subname}`} />
+                        <SelectValue placeholder={`${filialAnalise === 0 ? '0 - Analisando a Rede' : filialative}`} />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value={'0'}>0 - Análise da rede</SelectItem>
                         {companies.map((filial: any, fdx: number) => (
                             <SelectItem key={fdx} value={filial.subnumber}>{filial.subnumber} - {filial.subname}</SelectItem>
                         ))}
