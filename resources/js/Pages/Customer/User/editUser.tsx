@@ -46,7 +46,7 @@ const editUser = ({ organizations, user }: any) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             organization_id: user.organization_id.toString(),
-            company_id: user.company_id.toString(),
+            company_id: user.company_id ? user.company_id.toString() : '',
             name: user.name,
             email: user.email,
             roles: user.roles,
@@ -112,9 +112,9 @@ const editUser = ({ organizations, user }: any) => {
                                                 render={({ field }: any) => (
                                                     <FormItem className="flex flex-col">
                                                         <FormLabel>Filial do usuário</FormLabel>
-                                                        <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                                                        <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value} disabled={user.company_id ? false : true}>
                                                             <SelectTrigger className="">
-                                                                <SelectValue placeholder="Selecione a filial" />
+                                                                <SelectValue placeholder={user.company_id ? 'Selecione a filial' : 'Rede'} />
                                                             </SelectTrigger>
                                                             <SelectContent>
                                                                 {organizations[0].company?.map((stat: any, idx: number) => (

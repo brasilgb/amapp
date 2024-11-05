@@ -2,6 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import { Button } from '@/Components/ui/button';
 import LoginLayout from '@/Layouts/LoginLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -24,8 +25,7 @@ export default function ConfirmPassword() {
             <Head title="Confirm Password" />
 
             <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your
-                password before continuing.
+                Esta é uma área segura do aplicativo. Por favor, confirme sua senha antes de continuar.
             </div>
 
             <form onSubmit={submit}>
@@ -46,9 +46,13 @@ export default function ConfirmPassword() {
                 </div>
 
                 <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Confirm
-                    </PrimaryButton>
+                    <Button
+                        variant="login"
+                        className="w-full"
+                        disabled={processing}
+                    >
+                        Enviar link de redefinição de senha
+                    </Button>
                 </div>
             </form>
         </LoginLayout>

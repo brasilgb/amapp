@@ -52,15 +52,41 @@ export function DropdownMenuUser() {
                             <span>Profile</span>
                         </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Settings />
-                        <span>Configurações</span>
-                    </DropdownMenuItem>
+                    {!auth.user.company_id &&
+                        <>
+                            <DropdownMenuItem>
+                                <Link
+                                    className="flex items-center gap-2"
+                                    href={route('cliusers.index')}
+                                >
+                                    <Users />
+                                    <span>Gerenciar usuários</span>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link
+                                    className="flex items-center gap-2"
+                                    href={route('clisettings.index')}
+                                >
+                                    <Settings />
+                                    <span>Configurações</span>
+                                </Link>
+                            </DropdownMenuItem>
+                        </>
+                    }
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <LogOut />
-                    <span>Log out</span>
+                    <Link
+                        className="flex items-center gap-2"
+                        method="post"
+                        as="button"
+                        type="button"
+                        href={route('logout')}
+                    >
+                        <LogOut />
+                        <span>Log out</span>
+                    </Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

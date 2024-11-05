@@ -1,19 +1,30 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
-import ApplicationLogo from '../Components/ApplicationLogo';
+import { Card, CardContent, CardHeader } from '@/Components/ui/card';
 
 export default function LoginLayout({ children }: PropsWithChildren) {
-    return (
-        <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />
-                </Link>
-            </div>
+    const { setinfo } = usePage().props as any;
 
-            <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
-                {children}
-            </div>
+    return (
+        <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 justify-center sm:p-0 px-4">
+            <Card className='sm:w-1/5 w-full'>
+                <CardHeader>
+                    <div className='flex items-center justify-center'>
+                        <Link href="/">
+                            <img
+                                className='h-24 w-24 rounded-full object-content'
+                                src={`/storage/images/${!setinfo?.organization_id ? setinfo?.logo : "default.png"}`}
+                                alt="Imagem de logo"
+                            />
+                        </Link>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="w-full overflow-hidden bg-white py-4 ">
+                        {children}
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }

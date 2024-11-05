@@ -10,7 +10,7 @@ type Props = {}
 
 export function Sidebar() {
     const { settings } = usePage().props.auth as any;
- 
+
     return (
         <div className='flex flex-col bg-muted/40'>
 

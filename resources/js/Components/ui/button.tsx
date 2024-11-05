@@ -21,6 +21,7 @@ const buttonVariants = cva(
         btnone: "text-white bg-red-600 hover:bg-red-600/90",
         btntwo: "text-white bg-cyan-600 hover:bg-cyan-600/90",
         edit: "text-white bg-amber-600 hover:bg-amber-600/90",
+        login: "text-white bg-sky-800 hover:bg-sky-800/90",
       },
       size: {
         default: "h-10 px-4 py-2",

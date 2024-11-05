@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react'
-import { Gauge, HandCoins, LogOut, Settings, User } from 'lucide-react';
+import { Gauge, HandCoins, LogOut, Settings, User, Users } from 'lucide-react';
 import React from 'react'
 import { Button } from '@/Components/ui/button';
 import { DropdownMenuUser } from './DropDownUser';

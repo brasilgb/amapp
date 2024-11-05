@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'settings' => $request->user() ? DB::table('settings')->where('organization_id', $request->user()->organization_id)->first() : '',
             ],
+            'setinfo' => DB::table('settings')->where('organization_id', null)->first(),
         ];
     }
 }
