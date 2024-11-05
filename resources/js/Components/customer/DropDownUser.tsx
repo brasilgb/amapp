@@ -30,7 +30,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { usePage } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 
 export function DropdownMenuUser() {
     const { auth } = usePage().props as any
@@ -44,8 +44,13 @@ export function DropdownMenuUser() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <User />
-                        <span>Profile</span>
+                        <Link
+                            className="flex items-center gap-2"
+                            href={route('cliusers.edit', auth.user.id)}
+                        >
+                            <User />
+                            <span>Profile</span>
+                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Settings />
