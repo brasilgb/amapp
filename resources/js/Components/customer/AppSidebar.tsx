@@ -11,27 +11,27 @@ const AppSidebar = () => {
     const items = [
         {
             title: "Dashboard",
-            url: route('admin'),
+            url: 'admin',
             icon: Home,
         },
         {
             title: "Organizações",
-            url: route('organizations.index'),
+            url: 'organizations',
             icon: Building2,
         },
         {
             title: "Filiais",
-            url: route('companies.index'),
+            url: 'companies',
             icon: Building,
         },
         {
             title: "Configurações",
-            url: route('settings.index'),
+            url: 'settings',
             icon: Settings,
         },
         {
             title: "Usuários",
-            url: route('users.index'),
+            url: 'users',
             icon: Users,
         },
     ]
@@ -43,12 +43,12 @@ const AppSidebar = () => {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <Link href={''}>
-                                <img
-                            className='h-8 w-8 rounded-full object-content'
-                                    src={`/storage/images/${settings?.logo ? settings?.logo : "default.png"}`}
-                                    alt="Imagem de logo"
-                                />
+                                <Link href={'/'}>
+                                    <img
+                                        className='h-8 w-8 rounded-full object-content'
+                                        src={`/storage/images/${settings?.logo ? settings?.logo : "default.png"}`}
+                                        alt="Imagem de logo"
+                                    />
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -60,10 +60,12 @@ const AppSidebar = () => {
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <Link href={item.url}>
+                                    <SidebarMenuButton variant={'default'} asChild isActive={route().current(`${item.url}.*`) ? true : false}>
+                                        <Link
+                                            href={route(item.url == 'admin' ? item.url :`${item.url}.index`)}
+                                        >
                                             <item.icon/>
-                                            <span>{item.title}</span>
+                                            <span className='font-semi text-base'>{item.title}</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
