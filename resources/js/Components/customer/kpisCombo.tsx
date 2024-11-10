@@ -32,20 +32,20 @@ const KpisCombo = (props: KpisProps) => {
                 <CardContent className="grid grid-cols-4 w-full p-0">
                     <div className='flex flex-col items-center justify-start w-full'>
                         <h1 className='text-sm sm:text-base text-gray-500'>Meta</h1>
-                        <p className='text-base font-semibold'>{parseValueMoney(props.valueMeta)}</p>
+                        <p className='text-xs font-semibold'>{parseValueMoney(props.valueMeta)}</p>
                     </div>
                     <div className='flex flex-col items-center justify-start w-full'>
                         <h1 className='text-sm sm:text-base text-gray-500'>Venda</h1>
-                        <p className='text-base font-semibold'>{parseValueMoney(props.valueVenda)}</p>
+                        <p className='text-xs font-semibold'>{parseValueMoney(props.valueVenda)}</p>
                     </div>
                     <div className='flex flex-col items-center justify-start w-full'>
                         
                         <h1 className='text-sm sm:text-base text-gray-500'>Margem</h1>
-                        <p className='text-base font-semibold'>{parseValuePercent(props.valueMargem)}</p>
+                        <p className='text-xs font-semibold'>{parseValuePercent(props.valueMargem)}</p>
                     </div>
                     <div className='flex flex-col items-center justify-start w-full'>
                         <h1 className='text-sm sm:text-base text-gray-500'>Rep</h1>
-                        <p className='text-base font-semibold'>{parseValuePercent(props.valueRep)}</p>
+                        <p className='text-xs font-semibold'>{parseValuePercent(props.valueRep)}</p>
                     </div>
                 </CardContent>
             </CardHeader>

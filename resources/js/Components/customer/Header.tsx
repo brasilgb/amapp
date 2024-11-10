@@ -26,19 +26,21 @@ const Header = (props: Props) => {
                 <li>
                     <Link
                         className={`flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-base font-semibold
-          ${route().current('clientes') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-100 text-green-600 hover:text-green-600/60'}
+          ${route().current('clientes') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-200 text-green-600 hover:text-green-600/60'}
           `}
                         href={route('clientes')}>
-                        <Gauge className='h-5 w-5' /> <span>Dashboard</span>
+                        <Gauge className='h-5 w-5' />
+                        <span className='sm:flex hidden'>Dashboard</span>
                     </Link>
                 </li>
                 <li>
                     <Link
                         className={`flex items-center justify-center gap-2 rounded-lg py-1 px-3 text-base font-semibold
-                        ${route().current('invoicing.*') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-100 text-green-600 hover:text-green-600/60'}
+                        ${route().current('invoicing.*') ? 'bg-green-600 text-white hover:text-white/80' : 'bg-gray-200 text-green-600 hover:text-green-600/60'}
                         `}
                         href={route('invoicing.summary')}>
-                        <HandCoins className='h-5 w-5' /> <span>Faturamento</span>
+                        <HandCoins className='h-5 w-5' />
+                        <span className='sm:flex hidden'>Faturamento</span>
                     </Link>
                 </li>
             </ul>

@@ -46,11 +46,11 @@ const SelectFilial = () => {
                 </div>
                 : <>
                     <Select onValueChange={handleSelected} value={`${filialAnalise}`}>
-                        <SelectTrigger className="w-[280px]">
+                        <SelectTrigger className="sm:w-[280px] w-28">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="0">0 - Análise da Rede</SelectItem>
+                            <SelectItem value="0">0 - Rede</SelectItem>
                             {companies.map((filial: any, fdx: number) => (
                                 <SelectItem key={fdx} value={filial.subnumber}>{filial.subnumber} - {filial.subname}</SelectItem>
                             ))}
@@ -61,7 +61,7 @@ const SelectFilial = () => {
                         size="default"
                         onClick={() => setFilialAnalise(0)}
                     >
-                        <Network className="h-5 w-5" /><span>Análise da rede</span>
+                        <Network className="h-5 w-5" /><span className='sm:flex hidden'>Análise da rede</span>
                     </Button>
                 </>
             }

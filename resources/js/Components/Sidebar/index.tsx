@@ -24,10 +24,10 @@ export function Sidebar() {
                             className='flex h-9 w-9 shrink-0 items-center justify-center bg-green-700 text-primary-foreground rounded-full'
                         >
                             <img
-                            className='h-8 w-8 rounded-full object-content'
-                                    src={`/storage/images/${settings?.logo ? settings?.logo : "default.png"}`}
-                                    alt="Imagem de logo"
-                                />
+                                className='h-8 w-8 rounded-full object-content'
+                                src={`/storage/images/${settings?.logo ? settings?.logo : "default.png"}`}
+                                alt="Imagem de logo"
+                            />
                         </Link>
 
                         <Tooltip>
@@ -134,7 +134,7 @@ export function Sidebar() {
                     </TooltipProvider>
                 </nav>
             </aside>
-            
+
             {/* Navegação mobile */}
             <div className='sm:hidden flex flex-col sm:gap-4 sm:py-4 sm:pl-14'>
                 <header className='sticky top-0 z-30 flex h-10 items-center  gap-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent'>
@@ -148,15 +148,18 @@ export function Sidebar() {
                         <SheetContent side="left">
                             <nav className='grid gap-6 text-lg font-medium'>
                                 <Link
-                                    href="#"
-                                    className='flex h-10 w-10 bg-primary rounded-full text-lg items-center justify-center text-primary-foreground md:text-base gap-2'
+                                    href={route('admin')}
+                                    className='flex h-9 w-9 shrink-0 items-center justify-center bg-green-700 text-primary-foreground rounded-full'
                                 >
-                                    <Package className='h-5 w-5 transition-all' />
-                                    <span className='sr-only'>Logo da Empresa</span>
+                                    <img
+                                        className='h-8 w-8 rounded-full object-content'
+                                        src={`/storage/images/${settings?.logo ? settings?.logo : "default.png"}`}
+                                        alt="Imagem de logo"
+                                    />
                                 </Link>
 
                                 <Link
-                                    href="#"
+                                    href={route('admin')}
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Home className='h-5 w-5 transition-all' />
@@ -164,7 +167,7 @@ export function Sidebar() {
                                 </Link>
 
                                 <Link
-                                    href="#"
+                                    href={route('organizations.index')}
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Building2 className='h-5 w-5 transition-all' />
@@ -172,7 +175,7 @@ export function Sidebar() {
                                 </Link>
 
                                 <Link
-                                    href="#"
+                                    href={route('companies.index')}
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <Building className='h-5 w-5 transition-all' />
@@ -180,7 +183,7 @@ export function Sidebar() {
                                 </Link>
 
                                 <Link
-                                    href="#"
+                                    href={route('settings.index')}
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <SlidersHorizontal className='h-5 w-5 transition-all' />
@@ -188,7 +191,7 @@ export function Sidebar() {
                                 </Link>
 
                                 <Link
-                                    href="#"
+                                    href={route('users.index')}
                                     className='flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground'
                                 >
                                     <User className='h-5 w-5 transition-all' />

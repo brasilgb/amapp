@@ -27,7 +27,7 @@ const ModalDelete = ({ url, param, title, content }: ModalDeleteProps) => {
             <DialogTrigger asChild>
                 <Button variant="destructive" size="icon"><Trash2 className="h-5 w-5" /></Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md w-[95%]">
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>
@@ -41,7 +41,7 @@ const ModalDelete = ({ url, param, title, content }: ModalDeleteProps) => {
                     </div>
                     </div>
                 </div>
-                <DialogFooter className="sm:justify-between">
+                <DialogFooter className="flex flex-row justify-between">
                     <DialogClose asChild>
                         <Button type="button" variant="secondary">
                             Fechar

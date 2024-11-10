@@ -33,12 +33,6 @@ interface ComposeChartProps {
 }
 const ComposeChart = ({ data }: ComposeChartProps) => {
 
-    // const diasemana = data.map((value: any) => moment(value?.dtvenda).format("DD"));
-    // const mesano = moment(data[0]?.dtvenda).format("MM/YYYY");
-    // const margem = data.map((value: any) => parseFloat(value?.margem));
-    // const meta = data.map((value: any) => parseFloat(value?.valmeta));
-    // const vendas = data.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((value: any) => parseFloat(value?.valvenda));
-
     const chartData = data.map((value: any) => ({
         diasemana: moment(value?.dtvenda).format("DD"),
         vendas: parseFloat(value?.valvenda),
