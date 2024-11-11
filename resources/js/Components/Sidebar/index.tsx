@@ -113,7 +113,7 @@ export function Sidebar() {
                 </nav>
 
                 <nav className='mt-auto flex flex-col items-center gap-4 px-2 py-5'>
-                    <TooltipProvider>
+                    {/* <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
@@ -131,7 +131,7 @@ export function Sidebar() {
                                 Sair
                             </TooltipContent>
                         </Tooltip>
-                    </TooltipProvider>
+                    </TooltipProvider> */}
                 </nav>
             </aside>
 

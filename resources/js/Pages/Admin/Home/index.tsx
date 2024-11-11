@@ -7,7 +7,7 @@ const Home = ({ kpis }: any) => {
   return (
     <AdminLayout>
       <main className="p-4">
-        <section className="grid sm\;grid-cols-3 gap-4">
+        <section className="grid sm:grid-cols-3 gap-4">
         <Card>
             <CardHeader>
               <div className="flex items-center justify-center">
