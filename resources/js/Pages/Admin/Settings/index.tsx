@@ -63,7 +63,7 @@ const Settings = ({ settings }: any) => {
                             </div>
 
                             <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" autoComplete="off">
                                     <div className="mt-4">
                                         <div className="">
                                             <FormField

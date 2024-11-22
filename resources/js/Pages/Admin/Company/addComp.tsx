@@ -133,7 +133,7 @@ const addComp = ({ organizations }: any) => {
                     <CardContent>
                         <div>
                             <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" autoComplete="off">
                                     <div className="grid sm:grid-cols-7 gap-4 mt-4">
                                         <div className="col-span-2">
                                             <FormField
